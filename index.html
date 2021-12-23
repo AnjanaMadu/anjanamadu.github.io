@@ -18,7 +18,7 @@
         seconds.innerHTML = i;
         if (i === 0) {
             window.location.href = "https://github.com/AnjanaMadu/";
-            throw new Error("Redirecting...");
+            clearInterval(this);
         }
     }, 1000);
 </script>
