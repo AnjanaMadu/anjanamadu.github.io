@@ -7,17 +7,18 @@
 </head>
 <body>
     <h3>
-        You will be redirected to <a href="https://github.com/AnjanaMadu/">github.com/AnjanaMadu</a> in <span id="seconds">3</span> seconds.
+        You will be redirected to <a href="https://github.com/AnjanaMadu/">github.com/AnjanaMadu</a> in <span id="seconds">4</span> seconds.
     </h3>
 </body>
 <script>
     var seconds = document.getElementById("seconds");
-    var i = 3;
+    var i = 4;
     setInterval(function() {
         i--;
         seconds.innerHTML = i;
         if (i === 0) {
             window.location.href = "https://github.com/AnjanaMadu/";
+            throw new Error("Redirecting...");
         }
     }, 1000);
 </script>
