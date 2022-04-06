@@ -13,12 +13,12 @@
 <script>
     var seconds = document.getElementById("seconds");
     var i = 4;
-    setInterval(function() {
+    const interval = setInterval(function() {
         i--;
         seconds.innerHTML = i;
         if (i === 0) {
             window.location.href = "https://github.com/AnjanaMadu/";
-            clearInterval(this);
+            clearInterval(interval);
         }
     }, 1000);
 </script>
