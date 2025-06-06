@@ -1,0 +1,64 @@
+/* Base styles */
+* { font-family: 'Fira Code', monospace; }
+body {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 25%, #2d1b69 50%, #1e1e3f 75%, #0f0f23 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    overflow-y: auto; /* Ensure scrolling is enabled */
+}
+
+/* Terminal styles */
+.glass-terminal {
+    background: rgba(15, 15, 35, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 100px rgba(100, 200, 255, 0.1);
+}
+
+.glass-section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Floating orbs */
+.floating-orb {
+    position: absolute; border-radius: 50%; opacity: 0.6; animation: float 8s ease-in-out infinite; pointer-events: none;
+}
+.orb-1 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 70%); top: 10%; left: 80%; animation-delay: 0s; }
+.orb-2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(255, 0, 255, 0.2) 0%, transparent 70%); top: 60%; left: -10%; animation-delay: -3s; }
+.orb-3 { width: 150px; height: 150px; background: radial-gradient(circle, rgba(0, 255, 100, 0.4) 0%, transparent 70%); top: 30%; right: 85%; animation-delay: -6s; }
+
+/* Terminal and text colors */
+.cursor { animation: blink 1.2s infinite; }
+.terminal-green { color: #00ff88; text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
+.terminal-blue { color: #00aaff; text-shadow: 0 0 10px rgba(0, 170, 255, 0.5); }
+.terminal-yellow { color: #ffdd00; text-shadow: 0 0 10px rgba(255, 221, 0, 0.5); }
+.terminal-purple { color: #dd88ff; text-shadow: 0 0 10px rgba(221, 136, 255, 0.5); }
+.terminal-cyan { color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
+.terminal-pink { color: #ff6b9d; text-shadow: 0 0 10px rgba(255, 107, 157, 0.5); }
+
+/* Glow effects */
+.glow-text { text-shadow: 0 0 20px currentColor; }
+.hover-glow:hover { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; transform: scale(1.02); transition: all 0.3s ease; }
+
+/* Content display */
+.section-hidden { display: none; }
+.prompt-line { display: flex; align-items: center; margin: 12px 0; }
+.command-output { margin-left: 0; padding-left: 0; }
+
+/* Borders and effects */
+.neon-border { border: 1px solid rgba(0, 255, 136, 0.3); box-shadow: 0 0 10px rgba(0, 255, 136, 0.2), inset 0 0 10px rgba(0, 255, 136, 0.1); }
+.neon-border:hover { border-color: rgba(0, 255, 136, 0.6); box-shadow: 0 0 20px rgba(0, 255, 136, 0.4), inset 0 0 15px rgba(0, 255, 136, 0.2); transition: all 0.3s ease; }
+
+/* Project cards */
+.project-card { transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.project-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 255, 136, 0.2); }
+
+/* Form inputs */
+.input-glow:focus { box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.3), 0 0 20px rgba(0, 255, 136, 0.2); border-color: rgba(0, 255, 136, 0.6); transition: all 0.3s ease; }
+
+/* Particles */
+.particles { position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; pointer-events: none; }
+.particle { position: absolute; width: 2px; height: 2px; background: rgba(0, 255, 136, 0.6); border-radius: 50%; animation: particleFloat 10s linear infinite; }

@@ -3,23 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect</title>
+    <title>anjana@portfolio:~$</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
 </head>
-<body>
-    <h3>
-        You will be redirected to <a href="https://github.com/AnjanaMadu/">github.com/AnjanaMadu</a> in <span id="seconds">4</span> seconds.
-    </h3>
+<body class="text-green-300 min-h-screen p-4 md:p-8 relative">
+    <!-- Floating Orbs -->
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10">
+        <!-- Terminal Header -->
+        <div class="glass-terminal rounded-t-2xl p-6 mb-0">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="flex gap-2">
+                        <div class="w-4 h-4 bg-gradient-to-br from-red-400 to-red-600 rounded-full shadow-lg"></div>
+                        <div class="w-4 h-4 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full shadow-lg"></div>
+                        <div class="w-4 h-4 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-lg"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm font-medium">anjana@portfolio — zsh — Terminal</span>
+                </div>
+                <div class="terminal-cyan text-sm">⚡ Online</div>
+            </div>
+        </div>
+
+        <!-- Terminal Content -->
+        <div class="glass-terminal rounded-b-2xl p-8" id="terminal-content">
+            <!-- Welcome -->
+            <div class="mb-8">
+                <div class="prompt-line">
+                    <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
+                    <span class="typewriter terminal-green">whoami && pwd</span>
+                    <span class="cursor terminal-green">▊</span>
+                </div>
+                <div class="command-output fade-in glass-section rounded-xl p-6 mt-4" style="animation-delay: 2.5s;">
+                    <div class="space-y-3">
+                        <p class="terminal-green glow-text text-xl font-bold">Anjana M.</p>
+                        <p class="terminal-cyan text-lg">Full-Stack Developer | Creative Technologist</p>
+                        <p class="text-gray-300">/home/anjana/passion/code/innovation</p>
+                        <div class="flex flex-wrap gap-4 text-sm mt-4">
+                            <span class="terminal-pink">🚀 Building the future</span>
+                            <span class="terminal-yellow">☕ Powered by coffee</span>
+                            <span class="terminal-purple">🌍 Colombo, LK</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="mb-10 fade-in" style="animation-delay: 3s;">
+                <div class="prompt-line">
+                    <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
+                    <span class="terminal-purple">ls -la --color=always</span>
+                </div>
+                <div class="command-output mt-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <button onclick="showSection('about')" class="glass-section rounded-xl p-4 hover-glow cursor-pointer neon-border text-left">
+                            <div class="terminal-cyan text-lg mb-1">📄 about.md</div><div class="text-gray-400 text-sm">Personal info & story</div>
+                        </button>
+                        <button onclick="showSection('skills')" class="glass-section rounded-xl p-4 hover-glow cursor-pointer neon-border text-left">
+                            <div class="terminal-purple text-lg mb-1">⚙️ skills.json</div><div class="text-gray-400 text-sm">Technical expertise</div>
+                        </button>
+                        <button onclick="showSection('projects')" class="glass-section rounded-xl p-4 hover-glow cursor-pointer neon-border text-left">
+                            <div class="terminal-yellow text-lg mb-1">🚀 projects/</div><div class="text-gray-400 text-sm">Featured work</div>
+                        </button>
+                        <button onclick="showSection('contact')" class="glass-section rounded-xl p-4 hover-glow cursor-pointer neon-border text-left">
+                            <div class="terminal-green text-lg mb-1">📧 contact.sh</div><div class="text-gray-400 text-sm">Let's connect</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Sections -->
+            <div id="content-container">
+                <!-- About Section -->
+                <div id="about" class="content-section section-hidden mb-10">
+                    <div class="prompt-line">
+                        <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
+                        <span class="terminal-cyan">cat about.md | bat --theme=Nord</span>
+                    </div>
+                    <div class="command-output mt-6">
+                        <div class="glass-section rounded-2xl p-8 space-y-6">
+                            <div class="border-l-4 border-terminal-cyan pl-6">
+                                <h3 class="terminal-cyan glow-text text-2xl mb-4 font-bold"># About Me</h3>
+                                <p class="text-gray-200 leading-relaxed mb-6 text-lg">I'm a passionate developer who transforms complex problems into elegant digital solutions. With 4+ years of experience, I specialize in creating seamless user experiences and robust backend systems.</p>
+                                <p class="text-gray-300 leading-relaxed">My journey started with curiosity about how things work under the hood. Now I build applications that millions of users interact with daily, focusing on performance, accessibility, and beautiful design.</p>
+                            </div>
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="glass-section rounded-xl p-6 text-center"><div class="terminal-green text-3xl mb-3 glow-text">🌟</div><h4 class="terminal-yellow font-semibold mb-2">Experience</h4><p class="text-gray-300">4+ Years Building</p></div>
+                                <div class="glass-section rounded-xl p-6 text-center"><div class="terminal-purple text-3xl mb-3 glow-text">🎯</div><h4 class="terminal-yellow font-semibold mb-2">Focus</h4><p class="text-gray-300">Full-Stack & UX</p></div>
+                                <div class="glass-section rounded-xl p-6 text-center"><div class="terminal-pink text-3xl mb-3 glow-text">⚡</div><h4 class="terminal-yellow font-semibold mb-2">Status</h4><p class="text-gray-300">Open for Hire</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div id="skills" class="content-section section-hidden mb-10">
+                    <div class="prompt-line">
+                        <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
+                        <span class="terminal-purple">jq . skills.json</span>
+                    </div>
+                    <div class="command-output mt-6">
+                        <div class="glass-section rounded-2xl p-8 overflow-x-auto">
+                            <pre class="text-sm md:text-base leading-relaxed"><span class="text-gray-300">{</span>
+  <span class="terminal-cyan glow-text">"frontend"</span>: { 
+    <span class="terminal-yellow">"frameworks"</span>: [<span class="terminal-green">"React"</span>, <span class="terminal-green">"Vue.js"</span>, <span class="terminal-green">"Next.js"</span>], 
+    <span class="terminal-yellow">"styling"</span>: [<span class="terminal-green">"Tailwind CSS"</span>, <span class="terminal-green">"SCSS"</span>], 
+    <span class="terminal-yellow">"tools"</span>: [<span class="terminal-green">"Vite"</span>, <span class="terminal-green">"TypeScript"</span>] 
+  },
+  <span class="terminal-cyan glow-text">"backend"</span>: { 
+    <span class="terminal-yellow">"languages"</span>: [<span class="terminal-green">"JavaScript"</span>, <span class="terminal-green">"Python"</span>, <span class="terminal-green">"Go"</span>], 
+    <span class="terminal-yellow">"frameworks"</span>: [<span class="terminal-green">"Node.js"</span>, <span class="terminal-green">"Express"</span>, <span class="terminal-green">"FastAPI"</span>], 
+    <span class="terminal-yellow">"databases"</span>: [<span class="terminal-green">"PostgreSQL"</span>, <span class="terminal-green">"MongoDB"</span>, <span class="terminal-green">"Redis"</span>] 
+  },
+  <span class="terminal-cyan glow-text">"devops"</span>: { 
+    <span class="terminal-yellow">"cloud"</span>: [<span class="terminal-green">"AWS"</span>, <span class="terminal-green">"Google Cloud"</span>, <span class="terminal-green">"Vercel"</span>], 
+    <span class="terminal-yellow">"tools"</span>: [<span class="terminal-green">"Docker"</span>, <span class="terminal-green">"Kubernetes"</span>, <span class="terminal-green">"GitHub Actions"</span>] 
+  },
+  <span class="terminal-cyan glow-text">"current_setup"</span>: { 
+    <span class="terminal-yellow">"editor"</span>: <span class="terminal-green">"VS Code"</span>, 
+    <span class="terminal-yellow">"terminal"</span>: <span class="terminal-green">"PowerShell 7"</span>, 
+    <span class="terminal-yellow">"os"</span>: <span class="terminal-green">"Manjaro / Windows"</span> 
+  }
+<span class="text-gray-300">}</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div id="projects" class="content-section section-hidden mb-10">
+                    <div class="prompt-line">
+                        <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
+                        <span class="terminal-green">find projects/ -type f -name "*.featured"</span>
+                    </div>
+                    <div class="command-output mt-6 space-y-6">
+                        <div class="project-card glass-section rounded-2xl p-8 neon-border">
+                            <div class="flex items-start justify-between mb-4"><h4 class="terminal-cyan glow-text text-xl font-bold">🌐 E-Commerce Platform</h4><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs border border-green-500/30">Live</span></div>
+                            <p class="text-gray-200 mb-4 leading-relaxed">Full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard, built for scalability.</p>
+                            <div class="flex flex-wrap gap-2 mb-4"><span class="terminal-yellow text-sm px-3 py-1 bg-yellow-500/10 rounded-full border border-yellow-500/30">React</span><span class="terminal-blue text-sm px-3 py-1 bg-blue-500/10 rounded-full border border-blue-500/30">Node.js</span><span class="terminal-pink text-sm px-3 py-1 bg-pink-500/10 rounded-full border border-pink-500/30">Stripe API</span></div>
+                            <div class="flex gap-4 text-sm"><a href="#" target="_blank" class="terminal-cyan hover-glow">🔗 Live Demo</a><a href="#" target="_blank" class="terminal-green hover-glow">📱 GitHub</a></div>
+                        </div>
+                        <div class="project-card glass-section rounded-2xl p-8 neon-border">
+                            <div class="flex items-start justify-between mb-4"><h4 class="terminal-cyan glow-text text-xl font-bold">🤖 AI-Powered Task Manager</h4><span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs border border-purple-500/30">AI</span></div>
+                            <p class="text-gray-200 mb-4 leading-relaxed">Smart task management with AI-powered prioritization, NLP, and predictive scheduling for enhanced productivity.</p>
+                            <div class="flex flex-wrap gap-2 mb-4"><span class="terminal-yellow text-sm px-3 py-1 bg-yellow-500/10 rounded-full border border-yellow-500/30">Vue.js</span><span class="terminal-green text-sm px-3 py-1 bg-green-500/10 rounded-full border border-green-500/30">Python</span><span class="terminal-blue text-sm px-3 py-1 bg-blue-500/10 rounded-full border border-blue-500/30">Gemini API</span></div>
+                            <div class="flex gap-4 text-sm"><a href="#" target="_blank" class="terminal-cyan hover-glow">🔗 Try It Out</a><a href="#" target="_blank" class="terminal-green hover-glow">📱 Source Code</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Section -->
+                <div id="contact" class="content-section section-hidden mb-10">
+                    <div class="prompt-line">
+                        <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
+                        <span class="terminal-green">chmod +x contact.sh && ./contact.sh</span>
+                    </div>
+                    <div class="command-output mt-6">
+                        <div class="glass-section rounded-2xl p-8 space-y-6">
+                            <div class="text-center mb-8">
+                                <h3 class="terminal-cyan glow-text text-2xl font-bold mb-4">#!/bin/bash</h3>
+                                <p class="terminal-green text-lg mb-2"># Let's build something incredible together! 🚀</p>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-8 items-start">
+                                <div class="space-y-4">
+                                    <div class="glass-section rounded-xl p-6 neon-border">
+                                        <div class="flex items-center gap-3 mb-2"><span class="terminal-pink text-xl">📧</span><span class="terminal-yellow font-semibold">EMAIL=</span></div>
+                                        <a href="mailto:hello@anjanamadu.net" class="terminal-cyan hover-glow text-lg break-all">hello@anjanamadu.net</a>
+                                    </div>
+                                    <div class="glass-section rounded-xl p-6 neon-border">
+                                        <div class="flex items-center gap-3 mb-2"><span class="terminal-purple text-xl">🐙</span><span class="terminal-yellow font-semibold">GITHUB=</span></div>
+                                        <a href="https://github.com/anjanamadu" target="_blank" class="terminal-cyan hover-glow text-lg break-all">github.com/anjanamadu</a>
+                                    </div>
+                                </div>
+                                <form id="contact-form" class="space-y-4">
+                                    <div>
+                                        <label for="name" class="block text-sm terminal-yellow mb-2">~ /name $</label>
+                                        <input type="text" id="name" name="name" required class="w-full bg-black/20 p-3 rounded-lg border border-gray-600 focus:outline-none input-glow text-gray-200">
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-sm terminal-yellow mb-2">~ /email $</label>
+                                        <input type="email" id="email" name="email" required class="w-full bg-black/20 p-3 rounded-lg border border-gray-600 focus:outline-none input-glow text-gray-200">
+                                    </div>
+                                    <div>
+                                        <label for="message" class="block text-sm terminal-yellow mb-2">~ /message $</label>
+                                        <textarea id="message" name="message" rows="4" required class="w-full bg-black/20 p-3 rounded-lg border border-gray-600 focus:outline-none input-glow text-gray-200"></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full terminal-green font-bold py-3 px-4 rounded-lg neon-border hover:bg-green-500/20 transition-all duration-300">SEND_MESSAGE</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
-<script>
-    var seconds = document.getElementById("seconds");
-    var i = 4;
-    const interval = setInterval(function() {
-        i--;
-        seconds.innerHTML = i;
-        if (i === 0) {
-            window.location.href = "https://github.com/AnjanaMadu/";
-            clearInterval(interval);
-        }
-    }, 1000);
-</script>
 </html>
