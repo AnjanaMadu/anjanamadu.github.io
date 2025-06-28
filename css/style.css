@@ -62,3 +62,48 @@ body {
 /* Particles */
 .particles { position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; pointer-events: none; }
 .particle { position: absolute; width: 2px; height: 2px; background: rgba(0, 255, 136, 0.6); border-radius: 50%; animation: particleFloat 10s linear infinite; }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    body { padding: 1rem; }
+    
+    .glass-terminal { padding: 1rem; border-radius: 1rem; }
+    
+    /* Simplified prompt for mobile */
+    .prompt-line .terminal-prompt-full { display: none; }
+    .prompt-line .terminal-prompt-mobile { display: inline; }
+    
+    /* Better word wrapping */
+    .command-output { 
+        word-wrap: break-word; 
+        overflow-wrap: break-word; 
+        hyphens: auto;
+    }
+    
+    /* Mobile-friendly text sizes */
+    .typewriter { font-size: 0.9rem; }
+    .terminal-output { font-size: 0.875rem; }
+    
+    /* Responsive pre blocks */
+    pre { 
+        font-size: 0.75rem; 
+        white-space: pre-wrap; 
+        word-wrap: break-word;
+        overflow-x: auto;
+    }
+    
+    /* Mobile cards */
+    .glass-section { padding: 1rem; }
+    .project-card { padding: 1.5rem; }
+    
+    /* Form improvements */
+    #contact-form input, #contact-form textarea { 
+        font-size: 1rem; /* Prevent zoom on iOS */
+    }
+}
+
+/* Desktop only - show full prompt */
+@media (min-width: 769px) {
+    .prompt-line .terminal-prompt-mobile { display: none; }
+    .prompt-line .terminal-prompt-full { display: inline; }
+}

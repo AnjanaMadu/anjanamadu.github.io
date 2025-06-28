@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initParticles() {
     const particleContainer = document.getElementById('particles');
-    const particleCount = 30; // Reduced count for better performance
+    if (!particleContainer) return;
+    
+    const particleCount = window.innerWidth < 768 ? 15 : 30; // Fewer particles on mobile
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
@@ -49,34 +51,27 @@ async function handleFormSubmission(form, submitButton) {
     // Client-side validation
     const validationResult = validateFormData(data);
     if (!validationResult.isValid) {
-        showTerminalMessage(validationResult.message, 'error');
+        showMessage(validationResult.message, 'error');
         return;
     }
 
     // Update UI for loading state
-    setFormLoadingState(submitButton, true);
+    setButtonState(submitButton, true);
     
     try {
         const response = await submitToAPI(data);
         
         if (response.success) {
-            showTerminalMessage(
-                `✅ MESSAGE_SENT successfully!\n` +
-                `📧 Your message has been delivered.\n` +
-                `🤖 I'll get back to you soon.\n` +
-                `📝 Submission ID: ${response.submissionId || 'N/A'}`, 
-                'success'
-            );
+            showMessage('✅ Message sent successfully!\n📧 I\'ll get back to you soon.', 'success');
             form.reset();
         } else {
             throw new Error(response.error || 'Unknown error occurred');
         }
         
     } catch (error) {
-        console.error('Form submission error:', error);
-        handleSubmissionError(error);
+        handleError(error);
     } finally {
-        setFormLoadingState(submitButton, false);
+        setButtonState(submitButton, false);
     }
 }
 
@@ -90,33 +85,27 @@ async function submitToAPI(data) {
     try {
         const response = await fetch(API_CONFIG.CONTACT_API_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
             signal: controller.signal
         });
         
         clearTimeout(timeoutId);
-        
         const result = await response.json();
         
         if (!response.ok) {
-            // Handle specific HTTP error codes
             if (response.status === 429) {
-                const retryAfter = result.retryAfter || 60;
-                throw new Error(`RATE_LIMIT_EXCEEDED: Please wait ${retryAfter} seconds before trying again.`);
+                throw new Error(`Rate limit exceeded. Try again in ${result.retryAfter || 60} seconds.`);
             }
-            throw new Error(result.error || `HTTP ${response.status}: ${response.statusText}`);
+            throw new Error(result.error || `HTTP ${response.status}`);
         }
         
         return result;
         
     } catch (error) {
         clearTimeout(timeoutId);
-        
         if (error.name === 'AbortError') {
-            throw new Error('REQUEST_TIMEOUT: The request took too long to complete.');
+            throw new Error('Request timeout. Please try again.');
         }
         throw error;
     }
@@ -127,72 +116,46 @@ async function submitToAPI(data) {
  */
 function validateFormData(data) {
     if (!data.name || data.name.length < 2) {
-        return { 
-            isValid: false, 
-            message: '❌ ERROR: Name must be at least 2 characters long.' 
-        };
+        return { isValid: false, message: '❌ Name must be at least 2 characters.' };
     }
-    
-    if (!data.email || !isValidEmail(data.email)) {
-        return { 
-            isValid: false, 
-            message: '❌ ERROR: Please enter a valid email address.' 
-        };
+    if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        return { isValid: false, message: '❌ Please enter a valid email.' };
     }
-    
     if (!data.message || data.message.length < 10) {
-        return { 
-            isValid: false, 
-            message: '❌ ERROR: Message must be at least 10 characters long.' 
-        };
+        return { isValid: false, message: '❌ Message must be at least 10 characters.' };
     }
-    
     if (data.message.length > 1000) {
-        return { 
-            isValid: false, 
-            message: '❌ ERROR: Message must be less than 1000 characters.' 
-        };
+        return { isValid: false, message: '❌ Message too long (max 1000 characters).' };
     }
-    
     return { isValid: true };
-}
-
-/**
- * Validate email format
- */
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
 }
 
 /**
  * Handle submission errors with user-friendly messages
  */
-function handleSubmissionError(error) {
-    let message = '❌ SUBMISSION_FAILED\n';
+function handleError(error) {
+    let message = '❌ Failed to send message.\n';
     
-    if (error.message.includes('RATE_LIMIT_EXCEEDED')) {
-        message += '⏱️  Rate limit exceeded.\n' + error.message.split(': ')[1];
-    } else if (error.message.includes('REQUEST_TIMEOUT')) {
-        message += '⏰ Request timed out.\n🔄 Please check your connection and try again.';
+    if (error.message.includes('Rate limit')) {
+        message += error.message;
+    } else if (error.message.includes('timeout')) {
+        message += 'Request timed out. Check connection.';
     } else if (error.message.includes('Failed to fetch')) {
-        message += '🌐 Network error.\n🔄 Please check your internet connection.';
+        message += 'Network error. Check internet.';
     } else {
-        message += `💥 ${error.message}\n🔄 Please try again later.`;
+        message += 'Please try again later.';
     }
     
-    showTerminalMessage(message, 'error');
+    showMessage(message, 'error');
 }
 
 /**
  * Show terminal-style messages
  */
-function showTerminalMessage(message, type = 'info') {
+function showMessage(message, type = 'info') {
     // Remove any existing message
-    const existingMessage = document.getElementById('terminal-message');
-    if (existingMessage) {
-        existingMessage.remove();
-    }
+    const existing = document.getElementById('terminal-message');
+    if (existing) existing.remove();
     
     // Create message element
     const messageDiv = document.createElement('div');
@@ -206,11 +169,14 @@ function showTerminalMessage(message, type = 'info') {
     
     messageDiv.innerHTML = `
         <div class="prompt-line mb-2">
-            <span class="terminal-blue glow-text font-semibold">system@contact</span>
-            <span class="text-white">:</span>
-            <span class="terminal-yellow glow-text">~</span>
-            <span class="text-white">$ </span>
-            <span class="terminal-purple">${type}_notification</span>
+            <span class="terminal-prompt-full">
+                <span class="terminal-blue glow-text font-semibold">system@contact</span>
+                <span class="text-white">:</span>
+                <span class="terminal-yellow glow-text">~</span>
+                <span class="text-white">$ </span>
+            </span>
+            <span class="terminal-prompt-mobile terminal-yellow glow-text">$ </span>
+            <span class="terminal-purple">${type}</span>
         </div>
         <div class="terminal-output">${formattedMessage}</div>
     `;
@@ -221,31 +187,20 @@ function showTerminalMessage(message, type = 'info') {
     
     // Auto-remove success messages after 10 seconds
     if (type === 'success') {
-        setTimeout(() => {
-            if (messageDiv.parentNode) {
-                messageDiv.remove();
-            }
-        }, 10000);
+        setTimeout(() => messageDiv?.remove(), 10000);
     }
-    
-    // Scroll to message
-    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 /**
  * Get CSS classes for different message types
  */
 function getMessageClasses(type) {
-    switch (type) {
-        case 'success':
-            return 'border-green-500/50 bg-green-500/10 text-green-300';
-        case 'error':
-            return 'border-red-500/50 bg-red-500/10 text-red-300';
-        case 'warning':
-            return 'border-yellow-500/50 bg-yellow-500/10 text-yellow-300';
-        default:
-            return 'border-blue-500/50 bg-blue-500/10 text-blue-300';
-    }
+    const classes = {
+        success: 'border-green-500/50 bg-green-500/10 text-green-300',
+        error: 'border-red-500/50 bg-red-500/10 text-red-300',
+        warning: 'border-yellow-500/50 bg-yellow-500/10 text-yellow-300'
+    };
+    return classes[type] || 'border-blue-500/50 bg-blue-500/10 text-blue-300';
 }
 
 /**
@@ -258,20 +213,17 @@ function escapeHtml(text) {
 }
 
 /**
- * Set form loading state
+ * Set form button state
  */
-function setFormLoadingState(submitButton, isLoading) {
-    if (isLoading) {
-        submitButton.disabled = true;
-        submitButton.innerHTML = `
-            <span class="inline-block animate-spin mr-2">⚡</span>
-            SENDING_MESSAGE...
-        `;
-        submitButton.classList.add('opacity-75');
+function setButtonState(button, loading) {
+    if (loading) {
+        button.disabled = true;
+        button.innerHTML = '<span class="inline-block animate-spin mr-2">⚡</span>SENDING...';
+        button.classList.add('opacity-75');
     } else {
-        submitButton.disabled = false;
-        submitButton.innerHTML = 'SEND_MESSAGE';
-        submitButton.classList.remove('opacity-75');
+        button.disabled = false;
+        button.innerHTML = 'SEND_MESSAGE';
+        button.classList.remove('opacity-75');
     }
 }
 
