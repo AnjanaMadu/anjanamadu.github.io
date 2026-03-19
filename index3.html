@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjana M. | Full-Stack Developer & DevOps Engineer</title>
+    <meta name="description" content="Full-stack, DevOps, Cloud, Security specialist from Colombo, Sri Lanka">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#ec4899',
+                        dark: '#0f172a',
+                        darker: '#020617',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'typing': 'typing 3.5s steps(40, end)',
+                        'blink': 'blink-caret 0.75s step-end infinite',
+                        'gradient': 'gradient 8s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        typing: {
+                            from: { width: '0' },
+                            to: { width: '100%' },
+                        },
+                        'blink-caret': {
+                            'from, to': { borderColor: 'transparent' },
+                            '50%': { borderColor: '#6366f1' },
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-light {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            padding: 2px;
+            border-radius: 1rem;
+        }
+        
+        .gradient-border-inner {
+            background: #0f172a;
+            border-radius: calc(1rem - 2px);
+            height: 100%;
+            width: 100%;
+        }
+        
+        .terminal-cursor::after {
+            content: '▋';
+            animation: blink 1s infinite;
+            color: #6366f1;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 5px;
+        }
+        
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 10s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-darker text-gray-100 font-sans antialiased overflow-x-hidden">
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="blob bg-primary w-96 h-96 rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="blob bg-secondary w-80 h-80 rounded-full bottom-0 right-0 translate-x-1/3 translate-y-1/3 animation-delay-2000"></div>
+        <div class="blob bg-accent w-64 h-64 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animation-delay-4000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl font-bold gradient-text font-mono">&lt;Anjana/&gt;</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">About</a>
+                    <a href="#skills" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Skills</a>
+                    <a href="#projects" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Projects</a>
+                    <a href="#stats" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Stats</a>
+                    <a href="#contact" class="px-4 py-2 bg-gradient-to-r from-primary to-secondary rounded-full text-white text-sm font-medium hover:shadow-lg hover:shadow-primary/50 transition-all">Let's Talk</a>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/10">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#about" class="block px-3 py-2 text-gray-300 hover:text-white rounded-md">About</a>
+                <a href="#skills" class="block px-3 py-2 text-gray-300 hover:text-white rounded-md">Skills</a>
+                <a href="#projects" class="block px-3 py-2 text-gray-300 hover:text-white rounded-md">Projects</a>
+                <a href="#stats" class="block px-3 py-2 text-gray-300 hover:text-white rounded-md">Stats</a>
+                <a href="#contact" class="block px-3 py-2 text-primary font-medium">Contact Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-16 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full glass-light text-sm text-primary font-mono">
+                        <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                        Available for hire
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                        Hi, I'm <span class="gradient-text">Anjana</span>
+                        <span class="block text-3xl lg:text-4xl text-gray-400 font-light mt-2 terminal-cursor" id="typewriter"></span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-400 max-w-xl leading-relaxed">
+                        A passionate Full-Stack Developer, DevOps Engineer, and Cloud Security specialist from Colombo, Sri Lanka. I transform complex problems into elegant digital solutions.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                        <a href="#projects" class="px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-semibold text-white hover:shadow-lg hover:shadow-primary/50 transition-all transform hover:-translate-y-1">
+                            View My Work
+                        </a>
+                        <a href="https://github.com/AnjanaMadu" target="_blank" class="px-8 py-4 glass-light rounded-full font-semibold text-white hover:bg-white/10 transition-all border border-white/20">
+                            <i class="fab fa-github mr-2"></i> GitHub
+                        </a>
+                    </div>
+
+                    <div class="flex items-center gap-6 justify-center lg:justify-start pt-4 text-gray-400">
+                        <a href="https://github.com/AnjanaMadu" target="_blank" class="hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="mailto:hello@anjanamadu.net" class="hover:text-white transition-colors text-2xl">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Content - Terminal Card -->
+                <div class="relative">
+                    <div class="glass rounded-2xl p-1 shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
+                        <div class="bg-darker rounded-xl p-6 font-mono text-sm">
+                            <!-- Terminal Header -->
+                            <div class="flex items-center gap-2 mb-4 pb-4 border-b border-white/10">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                <span class="ml-4 text-gray-500 text-xs">anjana@portfolio — zsh</span>
+                            </div>
+                            
+                            <!-- Terminal Content -->
+                            <div class="space-y-3 text-gray-300">
+                                <div class="flex">
+                                    <span class="text-green-400 mr-2">➜</span>
+                                    <span class="text-blue-400 mr-2">~</span>
+                                    <span class="text-gray-500">$</span>
+                                    <span class="ml-2 typing-text">whoami && pwd</span>
+                                </div>
+                                <div class="pl-6 text-gray-300">
+                                    <p class="text-xl font-bold text-white">Anjana M.</p>
+                                    <p class="text-primary">[hobby] Full-stack Developer</p>
+                                    <p class="text-gray-500">/home/anjana/passion/code/innovation</p>
+                                </div>
+                                
+                                <div class="flex">
+                                    <span class="text-green-400 mr-2">➜</span>
+                                    <span class="text-blue-400 mr-2">~</span>
+                                    <span class="text-gray-500">$</span>
+                                    <span class="ml-2">ls -la --color=always</span>
+                                </div>
+                                <div class="pl-6 grid grid-cols-2 gap-2 text-xs">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-file-code text-yellow-400"></i>
+                                        <span>skills.json</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-folder text-blue-400"></i>
+                                        <span>projects/</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-file-alt text-gray-400"></i>
+                                        <span>about.md</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-envelope text-red-400"></i>
+                                        <span>contact.sh</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex">
+                                    <span class="text-green-400 mr-2">➜</span>
+                                    <span class="text-blue-400 mr-2">~</span>
+                                    <span class="text-gray-500">$</span>
+                                    <span class="ml-2">cat skills.json | jq '.expertise'</span>
+                                </div>
+                                <div class="pl-6">
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-primary/20 text-primary rounded text-xs">Full-Stack</span>
+                                        <span class="px-2 py-1 bg-secondary/20 text-secondary rounded text-xs">DevOps</span>
+                                        <span class="px-2 py-1 bg-accent/20 text-accent rounded text-xs">Cloud</span>
+                                        <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">Security</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <span class="text-green-400 mr-2">➜</span>
+                                    <span class="text-blue-400 mr-2">~</span>
+                                    <span class="text-gray-500">$</span>
+                                    <span class="ml-2 terminal-cursor"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Badges -->
+                    <div class="absolute -top-4 -right-4 glass px-4 py-2 rounded-full text-sm font-mono animate-float shadow-xl">
+                        <i class="fas fa-map-marker-alt text-red-400 mr-2"></i>Colombo, LK
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 glass px-4 py-2 rounded-full text-sm font-mono animate-float shadow-xl" style="animation-delay: 1s;">
+                        <i class="fas fa-coffee text-yellow-400 mr-2"></i>Powered by coffee
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="gradient-border rounded-2xl">
+                        <div class="gradient-border-inner p-8">
+                            <img src="https://avatars.githubusercontent.com/u/86356062?v=4" alt="Anjana M." class="w-full rounded-xl shadow-2xl">
+                        </div>
+                    </div>
+                    <div class="absolute -z-10 inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl blur-3xl opacity-30"></div>
+                </div>
+                
+                <div class="space-y-6">
+                    <h2 class="text-4xl font-bold">
+                        About <span class="gradient-text">Me</span>
+                    </h2>
+                    <div class="space-y-4 text-gray-400 leading-relaxed">
+                        <p>
+                            I'm a passionate developer who transforms complex problems into elegant digital solutions. With 4+ years of experience in full-stack development, I specialize in creating scalable applications that deliver exceptional user experiences.
+                        </p>
+                        <p>
+                            My journey started with curiosity about how things work under the hood. Now I build applications that millions of users interact with daily, focusing on performance, security, and maintainability.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-6 pt-6">
+                        <div class="text-center p-4 glass rounded-xl">
+                            <div class="text-3xl font-bold gradient-text mb-1">47+</div>
+                            <div class="text-sm text-gray-500">Repositories</div>
+                        </div>
+                        <div class="text-center p-4 glass rounded-xl">
+                            <div class="text-3xl font-bold gradient-text mb-1">233</div>
+                            <div class="text-sm text-gray-500">Followers</div>
+                        </div>
+                        <div class="text-center p-4 glass rounded-xl">
+                            <div class="text-3xl font-bold gradient-text mb-1">4+</div>
+                            <div class="text-sm text-gray-500">Years Exp.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Technical <span class="gradient-text">Expertise</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">My tech stack and tools I use to bring ideas to life</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Frontend -->
+                <div class="skill-card glass rounded-2xl p-6 transition-all duration-300">
+                    <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-laptop-code text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Frontend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">React</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Vue.js</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Next.js</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Tailwind CSS</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">TypeScript</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">SCSS</span>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="skill-card glass rounded-2xl p-6 transition-all duration-300">
+                    <div class="w-12 h-12 bg-secondary/20 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-server text-2xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Backend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Node.js</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Python</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Go</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Express</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">FastAPI</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">PostgreSQL</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">MongoDB</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Redis</span>
+                    </div>
+                </div>
+
+                <!-- DevOps -->
+                <div class="skill-card glass rounded-2xl p-6 transition-all duration-300">
+                    <div class="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-cloud text-2xl text-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">DevOps</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">AWS</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Google Cloud</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Docker</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Kubernetes</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">GitHub Actions</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Vercel</span>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="skill-card glass rounded-2xl p-6 transition-all duration-300">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-tools text-2xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">VS Code</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">PowerShell 7</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Manjaro</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Windows</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Git</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">Figma</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Featured <span class="gradient-text">Projects</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Some of my recent work and open-source contributions</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: VoiceChatStreamer -->
+                <div class="project-card group relative glass rounded-2xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-microphone-alt text-6xl text-primary/50 group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs font-mono">75 ★</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">VoiceChatStreamer</h3>
+                        <p class="text-gray-400 text-sm mb-4">Stream audio or video files and URLs in Telegram voice chats. A powerful bot for seamless media streaming.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Python</span>
+                            <span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Telegram Bot</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/AnjanaMadu/VoiceChatStreamer" target="_blank" class="flex-1 text-center py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm transition-colors">
+                                <i class="fab fa-github mr-2"></i>Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: SeedrAPI -->
+                <div class="project-card group relative glass rounded-2xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-secondary/20 to-accent/20 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-cloud-download-alt text-6xl text-secondary/50 group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs font-mono">60 ★</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">SeedrAPI</h3>
+                        <p class="text-gray-400 text-sm mb-4">Unofficial API wrapper for seedr.cc. A Python library for interacting with Seedr cloud storage service.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded text-xs">Python</span>
+                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded text-xs">API</span>
+                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded text-xs">GPL-3.0</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/AnjanaMadu/SeedrAPI" target="_blank" class="flex-1 text-center py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm transition-colors">
+                                <i class="fab fa-github mr-2"></i>Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: WLAN-File-Share -->
+                <div class="project-card group relative glass rounded-2xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-wifi text-6xl text-accent/50 group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs font-mono">7 ★</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">WLAN File Share</h3>
+                        <p class="text-gray-400 text-sm mb-4">Transform your Android device into a high-performance Local NAS. Share files across your local network without cables or cloud services.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-accent/10 text-accent rounded text-xs">Dart</span>
+                            <span class="px-2 py-1 bg-accent/10 text-accent rounded text-xs">Flutter</span>
+                            <span class="px-2 py-1 bg-accent/10 text-accent rounded text-xs">Android</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/AnjanaMadu/WLAN-File-Share" target="_blank" class="flex-1 text-center py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm transition-colors">
+                                <i class="fab fa-github mr-2"></i>Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: seedr.app -->
+                <div class="project-card group relative glass rounded-2xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-green-500/20 to-primary/20 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-mobile-alt text-6xl text-green-400/50 group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-mono">New</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Seedr App</h3>
+                        <p class="text-gray-400 text-sm mb-4">A Flutter application for streaming and downloading torrents efficiently across Android and iOS platforms.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-green-500/10 text-green-400 rounded text-xs">Flutter</span>
+                            <span class="px-2 py-1 bg-green-500/10 text-green-400 rounded text-xs">Dart</span>
+                            <span class="px-2 py-1 bg-green-500/10 text-green-400 rounded text-xs">Mobile</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/AnjanaMadu/seedr.app" target="_blank" class="flex-1 text-center py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm transition-colors">
+                                <i class="fab fa-github mr-2"></i>Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: DaisyX -->
+                <div class="project-card group relative glass rounded-2xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center relative overflow-hidden">
+                        <i class="fab fa-telegram text-6xl text-blue-400/50 group-hover:scale-110 transition-transform duration-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">DaisyX Bot</h3>
+                        <p class="text-gray-400 text-sm mb-4">A feature-rich Telegram bot with multiple functionalities. Latest version of the DaisyX bot framework.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-pink-500/10 text-pink-400 rounded text-xs">Python</span>
+                            <span class="px-2 py-1 bg-pink-500/10 text-pink-400 rounded text-xs">Telegram</span>
+                            <span class="px-2 py-1 bg-pink-500/10 text-pink-400 rounded text-xs">AGPL-3.0</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/AnjanaMadu/DaisyX" target="_blank" class="flex-1 text-center py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm transition-colors">
+                                <i class="fab fa-github mr-2"></i>Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View All Card -->
+                <div class="glass rounded-2xl overflow-hidden border-2 border-dashed border-white/20 flex flex-col items-center justify-center p-6 hover:border-primary/50 transition-colors group cursor-pointer" onclick="window.open('https://github.com/AnjanaMadu?tab=repositories', '_blank')">
+                    <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-arrow-right text-2xl text-gray-400 group-hover:text-primary transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">View All Projects</h3>
+                    <p class="text-gray-400 text-sm text-center">Explore 47+ repositories on GitHub</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Stats Section -->
+    <section id="stats" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass rounded-3xl p-8 md:p-12">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4">GitHub <span class="gradient-text">Statistics</span></h2>
+                    <p class="text-gray-400">My open-source journey and contributions</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                    <div class="text-center p-6 glass-light rounded-2xl">
+                        <div class="text-4xl font-bold gradient-text mb-2">47</div>
+                        <div class="text-gray-400 text-sm">Public Repos</div>
+                    </div>
+                    <div class="text-center p-6 glass-light rounded-2xl">
+                        <div class="text-4xl font-bold gradient-text mb-2">233</div>
+                        <div class="text-gray-400 text-sm">Followers</div>
+                    </div>
+                    <div class="text-center p-6 glass-light rounded-2xl">
+                        <div class="text-4xl font-bold gradient-text mb-2">96</div>
+                        <div class="text-gray-400 text-sm">Following</div>
+                    </div>
+                    <div class="text-center p-6 glass-light rounded-2xl">
+                        <div class="text-4xl font-bold gradient-text mb-2">5</div>
+                        <div class="text-gray-400 text-sm">Gists</div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass-light rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fab fa-python text-yellow-400 mr-2"></i> Most Used Languages
+                        </h3>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Python</span>
+                                    <span class="text-gray-400">45%</span>
+                                </div>
+                                <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                    <div class="h-full bg-yellow-400 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Dart</span>
+                                    <span class="text-gray-400">30%</span>
+                                </div>
+                                <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-400 rounded-full" style="width: 30%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>JavaScript</span>
+                                    <span class="text-gray-400">25%</span>
+                                </div>
+                                <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                    <div class="h-full bg-yellow-300 rounded-full" style="width: 25%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-light rounded-2xl p-6 flex flex-col justify-center items-center text-center">
+                        <i class="fas fa-code-branch text-6xl text-primary/50 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Open Source Contributor</h3>
+                        <p class="text-gray-400 text-sm mb-4">Active contributor to the open-source community with focus on developer tools and automation.</p>
+                        <a href="https://github.com/AnjanaMadu" target="_blank" class="inline-flex items-center px-6 py-3 bg-primary/20 text-primary rounded-full hover:bg-primary/30 transition-colors">
+                            <i class="fab fa-github mr-2"></i> Visit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass rounded-3xl p-8 md:p-12">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4">Let's Build Something <span class="gradient-text">Amazing</span></h2>
+                    <p class="text-gray-400">Have a project in mind? Let's collaborate and create something incredible together.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <a href="mailto:hello@anjanamadu.net" class="glass-light rounded-2xl p-6 text-center hover:bg-white/10 transition-colors group">
+                        <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-envelope text-primary text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold mb-1">Email</h3>
+                        <p class="text-gray-400 text-sm">hello@anjanamadu.net</p>
+                    </a>
+                    
+                    <a href="https://github.com/AnjanaMadu" target="_blank" class="glass-light rounded-2xl p-6 text-center hover:bg-white/10 transition-colors group">
+                        <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fab fa-github text-secondary text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold mb-1">GitHub</h3>
+                        <p class="text-gray-400 text-sm">@AnjanaMadu</p>
+                    </a>
+                    
+                    <div class="glass-light rounded-2xl p-6 text-center">
+                        <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-map-marker-alt text-accent text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold mb-1">Location</h3>
+                        <p class="text-gray-400 text-sm">Colombo, Sri Lanka</p>
+                    </div>
+                </div>
+
+                <form class="space-y-6" onsubmit="event.preventDefault(); alert('Message sent! (Demo only)');">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                            <input type="text" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-primary transition-colors text-white placeholder-gray-500" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-primary transition-colors text-white placeholder-gray-500" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                        <textarea rows="4" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-primary transition-colors text-white placeholder-gray-500 resize-none" placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-primary to-secondary rounded-xl font-semibold text-white hover:shadow-lg hover:shadow-primary/50 transition-all transform hover:-translate-y-1">
+                        Send Message <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/10 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-gray-400 text-sm">
+                    © 2026 <span class="text-white font-semibold">Anjana M.</span> All rights reserved.
+                </div>
+                <div class="flex items-center gap-6 text-gray-400">
+                    <a href="https://github.com/AnjanaMadu" target="_blank" class="hover:text-white transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-white transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-white transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Typewriter Effect
+        const phrases = [
+            'Full-Stack Developer',
+            'DevOps Engineer',
+            'Cloud Architect',
+            'Security Specialist',
+            'Open Source Contributor'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterElement = document.getElementById('typewriter');
+
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start typewriter
+        typeWriter();
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Navbar Scroll Effect
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.skill-card, .project-card').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Add animation classes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fade-in-up {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .animate-fade-in-up {
+                animation: fade-in-up 0.6s ease-out forwards;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

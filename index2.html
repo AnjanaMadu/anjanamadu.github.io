@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjana Madu � Full-stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        .card-shadow:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(-4px);
+        }
+        .dark .card-shadow:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+        }
+        .gradient-border::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.7s ease-out forwards;
+        }
+        .skill-tag {
+            transition: all 0.2s ease;
+        }
+        .skill-tag:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden">
+    
+    <!-- Background decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-400/20 dark:bg-purple-600/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob"></div>
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-indigo-400/20 dark:bg-indigo-600/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob" style="animation-delay: 2s"></div>
+        <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-pink-400/20 dark:bg-pink-600/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob" style="animation-delay: 4s"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/50 dark:border-slate-800/50">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="font-bold text-xl tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">am.</a>
+            <div class="flex items-center gap-6 text-sm font-medium">
+                <a href="#about" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Work</a>
+                <a href="#contact" class="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full hover:opacity-80 transition-opacity">Contact</a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle theme">
+                    <svg id="sun-icon" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="moon-icon" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative min-h-screen flex items-center justify-center px-6 pt-16 z-10">
+        <div class="max-w-4xl text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-sm font-medium mb-6 animate-fade-up" style="animation-delay: 0.1s">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                Available for work
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight mb-4 animate-fade-up" style="animation-delay: 0.2s">
+                Anjana <span class="gradient-text">Madu</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-6 animate-fade-up" style="animation-delay: 0.3s">
+                Full-stack Developer based in Colombo, Sri Lanka
+            </p>
+            
+            <p class="text-slate-500 dark:text-slate-500 max-w-2xl mx-auto mb-8 text-base leading-relaxed animate-fade-up" style="animation-delay: 0.4s">
+                I craft digital experiences that blend clean code with thoughtful design. 
+                5+ years building everything from APIs to user interfaces.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-3 animate-fade-up" style="animation-delay: 0.5s">
+                <a href="#projects" class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-indigo-500/25">
+                    View Projects
+                </a>
+                <a href="#contact" class="px-8 py-3 border-2 border-slate-300 dark:border-slate-700 rounded-full font-semibold hover:border-indigo-600 dark:hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                    Get in Touch
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-16 grid grid-cols-3 gap-8 max-w-md mx-auto animate-fade-up" style="animation-delay: 0.6s">
+                <div class="text-center">
+                    <div class="text-3xl font-bold gradient-text">5+</div>
+                    <div class="text-sm text-slate-500">Years</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold gradient-text">50+</div>
+                    <div class="text-sm text-slate-500">Projects</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold gradient-text">8+</div>
+                    <div class="text-sm text-slate-500">Technologies</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Skills Combined -->
+    <section id="about" class="py-16 px-6 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <!-- About -->
+                <div>
+                    <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm">01</span>
+                        About Me
+                    </h2>
+                    <div class="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        <p class="text-lg font-medium text-slate-800 dark:text-slate-200">
+                            Turning ideas into scalable applications.
+                        </p>
+                        <p>
+                            I am a full-stack developer with over 5 years of hands-on experience building web applications, APIs, and developer tools. My journey began with simple curiosity about how websites work, which evolved into a deep passion for creating software that solves real problems.
+                        </p>
+                        <p>
+                            I specialize in JavaScript ecosystems, but I am equally comfortable with Python, Go, and PHP. Whether it is a complex React dashboard, a high-performance Go microservice, or a Dockerized deployment pipeline � I enjoy the full spectrum of development.
+                        </p>
+                        <p>
+                            When not coding, you will find me contributing to open source, exploring new frameworks, or planning my next project over a cup of coffee.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Skills Grid -->
+                <div id="skills">
+                    <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white text-sm">02</span>
+                        Tech Stack
+                    </h2>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag px-4 py-2 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 rounded-lg font-medium text-sm">JavaScript</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg font-medium text-sm">TypeScript</span>
+                        <span class="skill-tag px-4 py-2 bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300 rounded-lg font-medium text-sm">React</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-medium text-sm">Next.js</span>
+                        <span class="skill-tag px-4 py-2 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-lg font-medium text-sm">Node.js</span>
+                        <span class="skill-tag px-4 py-2 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 rounded-lg font-medium text-sm">Python</span>
+                        <span class="skill-tag px-4 py-2 px-4 py-2 bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300 rounded-lg font-medium text-sm">Go</span>
+                        <span class="skill-tag px-4 py-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded-lg font-medium text-sm">PHP</span>
+                        <span class="skill-tag px-4 py-2 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-lg font-medium text-sm">Laravel</span>
+                        <span class="skill-tag px-4 py-2 bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 rounded-lg font-medium text-sm">Tailwind CSS</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg font-medium text-sm">Docker</span>
+                        <span class="skill-tag px-4 py-2 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 rounded-lg font-medium text-sm">AWS</span>
+                        <span class="skill-tag px-4 py-2 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-lg font-medium text-sm">GraphQL</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg font-medium text-sm">Git</span>
+                        <span class="skill-tag px-4 py-2 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-lg font-medium text-sm">MongoDB</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg font-medium text-sm">PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-16 px-6 bg-slate-50/50 dark:bg-slate-900/50 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center justify-between mb-10">
+                <h2 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white text-sm">03</span>
+                    Featured Work
+                </h2>
+                <a href="https://github.com/anjanamadu" target="_blank" class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+                    View GitHub
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Project 1 -->
+                <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden card-shadow border border-slate-200 dark:border-slate-700">
+                    <div class="h-40 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-2xl font-bold">SaaS Platform</div>
+                            <div class="text-white/80 text-sm">Full-stack Application</div>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium">2024</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                            A comprehensive SaaS platform with real-time collaboration features, built with React, Node.js, and WebSocket integration.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-medium">React</span>
+                            <span class="px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">Node.js</span>
+                            <span class="px-3 py-1 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium">GraphQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden card-shadow border border-slate-200 dark:border-slate-700">
+                    <div class="h-40 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-2xl font-bold">API Gateway</div>
+                            <div class="text-white/80 text-sm">Microservices</div>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium">2024</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                            High-performance REST API gateway handling 10k+ req/s, built with Go and deployed on AWS ECS with auto-scaling.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-cyan-50 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 rounded-full text-xs font-medium">Go</span>
+                            <span class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">Docker</span>
+                            <span class="px-3 py-1 bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-xs font-medium">AWS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden card-shadow border border-slate-200 dark:border-slate-700">
+                    <div class="h-40 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-2xl font-bold">Dev CLI</div>
+                            <div class="text-white/80 text-sm">Developer Tools</div>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium">2023</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                            Open-source CLI toolkit for automating development workflows, scaffolding projects, and managing deployments.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full text-xs font-medium">Python</span>
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">CLI</span>
+                            <span class="px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">Open Source</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden card-shadow border border-slate-200 dark:border-slate-700">
+                    <div class="h-40 bg-gradient-to-br from-rose-500 via-pink-500 to-fuchsia-500 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-2xl font-bold">Landing Suite</div>
+                            <div class="text-white/80 text-sm">Design System</div>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium">2023</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                            Collection of high-converting landing pages with a shared component library, animations, and A/B testing framework.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 rounded-full text-xs font-medium">Tailwind</span>
+                            <span class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">Next.js</span>
+                            <span class="px-3 py-1 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium">Framer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-16 px-6 relative z-10">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold mb-3">Let us build something great</h2>
+                <p class="text-slate-600 dark:text-slate-400">Have a project in mind? I am always open to discussing new opportunities.</p>
+            </div>
+            
+            <div class="gradient-border rounded-2xl p-8 md:p-10 bg-white/50 dark:bg-slate-900/50">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-4">Contact Info</h3>
+                        <div class="space-y-4">
+                            <a href="mailto:hello@anjanamadu.net" class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                <div class="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-slate-500">Email</div>
+                                    <div class="font-medium">hello@anjanamadu.net</div>
+                                </div>
+                            </a>
+                            <a href="https://github.com/anjanamadu" target="_blank" class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                <div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-slate-500">GitHub</div>
+                                    <div class="font-medium">@anjanamadu</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">Currently based in Colombo, Sri Lanka. Working remotely with teams worldwide.</p>
+                        <div class="flex items-center gap-2 text-sm text-slate-500">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            Usually responds within 24 hours
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 px-6 border-t border-slate-200 dark:border-slate-800 relative z-10">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+            <p>� 2024 Anjana Madu. Built with Tailwind CSS.</p>
+            <p class="flex items-center gap-1">
+                Made with 
+                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                in Sri Lanka
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            html.classList.add('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
