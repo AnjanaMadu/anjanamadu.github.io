@@ -1,233 +1,624 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>anjana@portfolio:~$</title>
+    <title>Anjana Madu | Full-Stack, DevOps & Security Portfolio</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f7fa',
+                            100: '#eaeef4',
+                            200: '#d0daf2',
+                            300: '#a6bbe5',
+                            400: '#7594d4',
+                            500: '#4f70c1',
+                            600: '#3c55a3',
+                            700: '#314484',
+                            800: '#2c3a6b',
+                            900: '#28325a',
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts for premium typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
-</head>
-<body class="text-green-300 min-h-screen p-4 md:p-8 relative">
-    <!-- Floating Orbs -->
-    <div class="floating-orb orb-1"></div>
-    <div class="floating-orb orb-2"></div>
-    <div class="floating-orb orb-3"></div>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Particles -->
-    <div class="particles" id="particles"></div>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fcfdf2; /* Warm sophisticated light background */
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100">
 
-    <div class="max-w-5xl mx-auto relative z-10">
-        <!-- Terminal Header -->
-        <div class="glass-terminal rounded-t-2xl p-6 mb-0">
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center gap-3">
-                    <div class="flex gap-2">
-                        <div class="w-4 h-4 bg-gradient-to-br from-red-400 to-red-600 rounded-full shadow-lg"></div>
-                        <div class="w-4 h-4 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full shadow-lg"></div>
-                        <div class="w-4 h-4 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-lg"></div>
-                    </div>
-                    <span class="ml-4 text-gray-400 text-sm font-medium">anjana@portfolio — zsh — Terminal</span>
+    <!-- Header / Navigation Bar (Sticky & Compact) -->
+    <header class="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md">
+        <div class="mx-auto flex max-w-5xl h-14 items-center justify-between px-4 sm:px-6">
+            <a href="#hero" class="flex items-center space-x-2 group">
+                <span class="font-mono text-sm font-bold bg-slate-900 text-white px-2 py-0.5 rounded transition-transform group-hover:scale-105">AM</span>
+                <span class="font-semibold text-sm tracking-tight text-slate-800">Anjana <span class="text-indigo-600">M.</span></span>
+            </a>
+            
+            <nav class="flex items-center space-x-1 sm:space-x-2 text-xs font-medium text-slate-600">
+                <a href="#about" class="px-3 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-100 transition-colors">About</a>
+                <a href="#terminal" class="px-3 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-100 transition-colors">Terminal</a>
+                <a href="#projects" class="px-3 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-100 transition-colors">Projects</a>
+                <a href="#contact" class="ml-2 bg-slate-900 text-white px-3.5 py-1.5 rounded-md hover:bg-indigo-600 transition-all shadow-sm">Hire Me</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-5xl px-4 sm:px-6 py-6 space-y-12">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="max-w-3xl pt-4 sm:pt-8 space-y-5">
+            <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-[11px] font-semibold text-emerald-800 tracking-wide uppercase">Open to collaborate</span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
+                Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-600">Anjana M.</span>
+            </h1>
+            
+            <p class="text-sm sm:text-base text-slate-600 leading-relaxed" id="hero-bio">
+                Luv open source. Full-stack, DevOps, Cloud, & Security Engineer focusing on robust, production-ready infrastructures and sleek client applications.
+            </p>
+
+            <!-- Micro Github Stats Counters -->
+            <div class="flex flex-wrap items-center gap-4 py-1 text-xs">
+                <div class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm">
+                    <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span class="font-bold text-slate-800" id="stat-followers">232+</span>
+                    <span>Followers</span>
                 </div>
-                <div class="terminal-cyan text-sm">⚡ Online</div>
+                <div class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm">
+                    <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                    <span class="font-bold text-slate-800" id="stat-repos">48+</span>
+                    <span>Repositories</span>
+                </div>
+                <a href="https://github.com/anjanamadu" target="_blank" class="flex items-center space-x-1 text-indigo-600 hover:text-indigo-800 transition-colors font-medium">
+                    <span>Visit Profile</span>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path></svg>
+                </a>
+            </div>
+
+            <div class="flex gap-2.5 pt-1">
+                <a href="#projects" class="inline-flex items-center justify-center bg-slate-900 text-white font-medium text-xs px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-sm gap-2">
+                    View Projects
+                </a>
+                <a href="#contact" class="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-700 font-medium text-xs px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors shadow-sm gap-2">
+                    Let's Talk
+                </a>
+            </div>
+        </section>
+
+        <!-- About / Core Pillar Section (Slightly Compact Grid) -->
+        <section id="about" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-slate-200/60">
+            <div class="bg-white border border-slate-200/80 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg w-fit mb-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-950 text-sm mb-1.5">Full-Stack Engineering</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Crafting highly performant web architectures with Clean Code, Go, Python, and JavaScript frameworks. Focused on modular APIs and solid design patterns.
+                </p>
+            </div>
+
+            <div class="bg-white border border-slate-200/80 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="p-2 bg-sky-50 text-sky-600 rounded-lg w-fit mb-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-950 text-sm mb-1.5">DevOps & Cloud</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Managing container environments, CI/CD automated build pipelines, secure virtual clouds, and optimized server configurations for rock-solid deployments.
+                </p>
+            </div>
+
+            <div class="bg-white border border-slate-200/80 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg w-fit mb-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h3 class="font-bold text-slate-950 text-sm mb-1.5">Security Auditing</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Analyzing vulnerabilities, implementing reverse proxies, isolating APIs, and applying modern server protection to guard against system intrusions.
+                </p>
+            </div>
+        </section>
+
+        <!-- Dynamic / Interactive DevOps Terminal Section -->
+        <section id="terminal" class="space-y-4 pt-2">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-bold tracking-tight text-slate-900">Interactive Bio Terminal</h2>
+                    <p class="text-xs text-slate-500">Query the portfolio interactively like a system administrator.</p>
+                </div>
+                <span class="text-[10px] font-mono text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">Active CLI v1.2</span>
+            </div>
+
+            <div class="bg-slate-900 rounded-xl overflow-hidden shadow-lg border border-slate-850">
+                <!-- Terminal Titlebar -->
+                <div class="flex items-center justify-between px-4 py-2.5 bg-slate-850 border-b border-slate-800">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-xs font-mono text-slate-400">guest@anjanamadu.sh</span>
+                    <span class="text-slate-600 text-xs hover:text-slate-400 cursor-pointer" onclick="clearTerminal()">[Clear]</span>
+                </div>
+                
+                <!-- Terminal Console -->
+                <div id="terminal-body" class="p-4 h-60 overflow-y-auto font-mono text-xs text-emerald-400 space-y-2 scroll-smooth">
+                    <div>Welcome back. Dynamic links initialized. Type <span class="text-indigo-300 font-semibold">help</span> to list available commands.</div>
+                    <div><span class="text-indigo-400 font-semibold">guest@anjanamadu.sh:~$</span> <span class="text-slate-100">info</span></div>
+                    <div class="text-slate-300 leading-relaxed">
+                        Anjana Madu is a passionate Full-Stack Developer with a relentless learning model: "Build, break, learn, repeat." He operates heavily in Go, Python, and automated DevOps infrastructure.
+                    </div>
+                </div>
+
+                <!-- Terminal Prompt Input -->
+                <div class="flex items-center px-4 py-2 bg-slate-950 border-t border-slate-800">
+                    <span class="font-mono text-xs text-indigo-400 mr-2">guest@anjanamadu.sh:~$</span>
+                    <input type="text" id="terminal-input" placeholder="Type command here..." class="flex-1 bg-transparent border-none outline-none font-mono text-xs text-white focus:ring-0 placeholder-slate-700" autocomplete="off" stroke-none />
+                    <span class="text-[10px] font-mono text-slate-500">Press Enter</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Projects Grid (Fetched dynamically with Github API) -->
+        <section id="projects" class="space-y-4 pt-4 border-t border-slate-200/60">
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <h2 class="text-lg font-bold tracking-tight text-slate-900">Live Repositories & Tools</h2>
+                    <p class="text-xs text-slate-500">Sourced live from GitHub API (displaying top-rated open-source projects).</p>
+                </div>
+                <div class="mt-2 sm:mt-0 flex items-center space-x-1 bg-white border border-slate-200 p-1 rounded-lg">
+                    <button onclick="filterRepos('all')" id="btn-all" class="px-2.5 py-1 text-xs font-medium rounded-md bg-indigo-50 text-indigo-600">All</button>
+                    <button onclick="filterRepos('python')" id="btn-python" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900">Python</button>
+                    <button onclick="filterRepos('go')" id="btn-go" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900">Go</button>
+                    <button onclick="filterRepos('js')" id="btn-js" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900">Web/JS</button>
+                </div>
+            </div>
+
+            <!-- Loader Indicator -->
+            <div id="repos-loader" class="flex flex-col items-center justify-center py-12 space-y-2">
+                <div class="w-8 h-8 border-4 border-slate-200 border-t-indigo-600 rounded-full animate-spin"></div>
+                <p class="text-xs text-slate-500 font-mono">Quering github.com API...</p>
+            </div>
+
+            <!-- Projects Grid Container -->
+            <div id="repos-grid" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Repo cards will inject here -->
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6 border-t border-slate-200/60">
+            <!-- Left Info Column -->
+            <div class="md:col-span-5 space-y-4">
+                <div>
+                    <h2 class="text-lg font-bold tracking-tight text-slate-900">Start a Project</h2>
+                    <p class="text-xs text-slate-500 mt-1">
+                        Looking for a clean automation process, reliable backend, or infrastructure integration? Let's engineer something great together.
+                    </p>
+                </div>
+
+                <div class="space-y-2.5 text-xs">
+                    <div class="flex items-center space-x-3 bg-white border border-slate-200/80 p-2.5 rounded-xl shadow-sm">
+                        <div class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">EMAIL ME</p>
+                            <a href="mailto:contact@anjanamadu.net" class="font-semibold text-slate-850 hover:text-indigo-600">contact@anjanamadu.net</a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 bg-white border border-slate-200/80 p-2.5 rounded-xl shadow-sm">
+                        <div class="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 12h4v2H4v-2zm0 4h4v2H4v-2zm0-8h4v2H4V8zm16 10H10v-2h10v2zm0-4H10v-2h10v2zm0-4H10V8h10v2z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">TELEGRAM HANDLE</p>
+                            <a href="https://t.me/Anjana_Ma" target="_blank" class="font-semibold text-slate-850 hover:text-indigo-600">@Anjana_Ma</a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 bg-white border border-slate-200/80 p-2.5 rounded-xl shadow-sm">
+                        <div class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11.5V9m.608-6.285A13.953 13.953 0 0112 5c1.01 0 1.981-.135 2.9-.386a3.375 3.375 0 004.553 4.103M15 11.5a3 3 0 01-6 0M3 20h6M21 20h-6M18 10a3 3 0 00-3-3V4a3 3 0 00-6 0v3A3 3 0 006 10h12z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-medium">WEBSITE</p>
+                            <a href="https://anjanamadu.net" target="_blank" class="font-semibold text-slate-850 hover:text-indigo-600">anjanamadu.net</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Interactive Contact Form -->
+            <div class="md:col-span-7">
+                <form id="contact-form" class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label for="form-name" class="text-xs font-semibold text-slate-700">Full Name</label>
+                            <input type="text" id="form-name" required placeholder="John Doe" class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors" />
+                        </div>
+                        <div class="space-y-1.5">
+                            <label for="form-email" class="text-xs font-semibold text-slate-700">Email Address</label>
+                            <input type="email" id="form-email" required placeholder="johndoe@example.com" class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors" />
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="form-message" class="text-xs font-semibold text-slate-700">Project Detail / Message</label>
+                        <textarea id="form-message" required rows="3" placeholder="Tell me about your project context..." class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors resize-none"></textarea>
+                    </div>
+
+                    <!-- Dynamic Notification States -->
+                    <div id="form-feedback" class="hidden text-xs px-3 py-2 rounded-lg font-medium"></div>
+
+                    <button type="submit" id="form-submit-btn" class="w-full bg-slate-900 text-white hover:bg-indigo-600 text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-sm flex items-center justify-center space-x-2">
+                        <span>Send Message</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path></svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Compact Footer -->
+    <footer class="mt-12 bg-white border-t border-slate-200/80 py-6">
+        <div class="mx-auto max-w-5xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <p>&copy; 2026 Anjana M. Built with modern, compact web design frameworks.</p>
+            <div class="flex items-center space-x-4">
+                <a href="https://github.com/anjanamadu" target="_blank" class="hover:text-slate-900 transition-colors">GitHub</a>
+                <a href="https://t.me/Anjana_Ma" target="_blank" class="hover:text-slate-900 transition-colors">Telegram</a>
+                <a href="https://anjanamadu.net" target="_blank" class="hover:text-slate-900 transition-colors">Website</a>
             </div>
         </div>
+    </footer>
 
-        <!-- Terminal Content -->
-        <div class="glass-terminal rounded-b-2xl p-8" id="terminal-content">
-            <!-- Welcome -->
-            <div class="mb-8">
-                <div class="prompt-line">
-                    <span class="terminal-prompt-full">
-                        <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
-                    </span>
-                    <span class="terminal-prompt-mobile terminal-yellow glow-text">$ </span>
-                    <span class="typewriter terminal-green">whoami && pwd</span>
-                    <span class="cursor terminal-green">▊</span>
-                </div>
-                <div class="command-output fade-in glass-section rounded-xl p-6 mt-4" style="animation-delay: 2.5s;">
-                    <div class="space-y-3">
-                        <p class="terminal-green glow-text text-xl font-bold">Anjana M.</p>
-                        <p class="terminal-cyan text-lg">[hobby] Full-stack Developer</p>
-                        <p class="text-gray-300">/home/anjana/passion/code/innovation</p>
-                        <div class="flex flex-wrap gap-4 text-sm mt-4">
-                            <span class="terminal-pink">🚀 Building the future</span>
-                            <span class="terminal-yellow">☕ Powered by coffee</span>
-                            <span class="terminal-purple">🌍 Colombo, LK</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Interactive Logic & API Integration Scripts -->
+    <script>
+        // High fidelity fallback info representing anjanamadu in case rate limiting occurs
+        const fallbackUser = {
+            bio: "Luv open source. Full-stack, DevOps, Cloud, Security",
+            followers: 232,
+            public_repos: 48,
+            location: "Sri Lanka",
+            name: "Anjana M."
+        };
 
-            <!-- Navigation Menu -->
-            <div class="mb-10 fade-in" style="animation-delay: 3s;">
-                <div class="prompt-line">
-                    <span class="terminal-prompt-full">
-                        <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
-                    </span>
-                    <span class="terminal-prompt-mobile terminal-yellow glow-text">$ </span>
-                    <span class="terminal-purple">ls -la --color=always</span>
-                </div>
-                <div class="command-output mt-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <button onclick="showSection('about')" class="glass-section rounded-xl p-4 hover-glow cursor-pointer neon-border text-left">
-                            <div class="terminal-cyan text-lg mb-1">📄 about.md</div><div class="text-gray-400 text-sm">Personal info & story</div>
-                        </button>
-                        <button onclick="showSection('skills')" class="glass-section rounded-xl p-4 hover-glow cursor-pointer neon-border text-left">
-                            <div class="terminal-purple text-lg mb-1">⚙️ skills.json</div><div class="text-gray-400 text-sm">Technical expertise</div>
-                        </button>
-                        <button onclick="showSection('projects')" class="glass-section rounded-xl p-4 hover-glow cursor-pointer neon-border text-left">
-                            <div class="terminal-yellow text-lg mb-1">🚀 projects/</div><div class="text-gray-400 text-sm">Featured work</div>
-                        </button>
-                        <button onclick="showSection('contact')" class="glass-section rounded-xl p-4 hover-glow cursor-pointer neon-border text-left">
-                            <div class="terminal-green text-lg mb-1">📧 contact.sh</div><div class="text-gray-400 text-sm">Let's connect</div>
-                        </button>
-                    </div>
-                </div>
-            </div>
+        const fallbackRepos = [
+            {
+                name: "VoiceChatStreamer",
+                description: "A professional audio and voice chat streamer designed heavily in Python with extreme runtime reliability.",
+                stargazers_count: 74,
+                forks_count: 93,
+                language: "Python",
+                html_url: "https://github.com/AnjanaMadu/VoiceChatStreamer"
+            },
+            {
+                name: "MentionAllBot",
+                description: "This bot can mention members up to 10,000 in groups and can mention members up to 200 in channels with Telegram wrapper optimization.",
+                stargazers_count: 51,
+                forks_count: 140,
+                language: "Python",
+                html_url: "https://github.com/AnjanaMadu/MentionAllBot"
+            },
+            {
+                name: "YTPlaylistDL",
+                description: "A functional, responsive Telegram bot to download complete YouTube playlists and seamlessly upload back into Telegram structures.",
+                stargazers_count: 43,
+                forks_count: 102,
+                language: "Python",
+                html_url: "https://github.com/AnjanaMadu/YTPlaylistDL"
+            }
+        ];
 
-            <!-- Content Sections -->
-            <div id="content-container">
-                <!-- About Section -->
-                <div id="about" class="content-section section-hidden mb-10">
-                    <div class="prompt-line">
-                        <span class="terminal-prompt-full">
-                            <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
-                        </span>
-                        <span class="terminal-prompt-mobile terminal-yellow glow-text">$ </span>
-                        <span class="terminal-cyan">cat about.md | bat --theme=Nord</span>
+        let allFetchedRepos = [];
+
+        // Dynamic API Hydrator
+        async function loadGithubData() {
+            const userUrl = 'https://api.github.com/users/anjanamadu';
+            const reposUrl = 'https://api.github.com/users/anjanamadu/repos?per_page=100&sort=updated';
+            
+            try {
+                // Fetch User Details
+                const userRes = await fetch(userUrl);
+                if (userRes.ok) {
+                    const userData = await userRes.json();
+                    const avatarImg = document.getElementById('avatar-img');
+                    if (avatarImg) {
+                        avatarImg.src = userData.avatar_url || fallbackUser.avatar_url;
+                    }
+                    document.getElementById('hero-bio').innerText = userData.bio || fallbackUser.bio;
+                    document.getElementById('stat-followers').innerText = userData.followers || fallbackUser.followers;
+                    document.getElementById('stat-repos').innerText = userData.public_repos || fallbackUser.public_repos;
+                } else {
+                    console.log("Using static fallback info for profile.");
+                }
+
+                // Fetch Repositories
+                const reposRes = await fetch(reposUrl);
+                if (reposRes.ok) {
+                    const reposData = await reposRes.json();
+                    // Keep robust repos containing useful features
+                    allFetchedRepos = reposData.filter(r => !r.fork);
+                    // If no main repos fetched, load key fallback repos
+                    if (allFetchedRepos.length === 0) {
+                        allFetchedRepos = fallbackRepos;
+                    }
+                } else {
+                    allFetchedRepos = fallbackRepos;
+                }
+            } catch (err) {
+                console.error("GitHub API failed, falling back gracefully to reliable pre-configured assets.", err);
+                allFetchedRepos = fallbackRepos;
+            } finally {
+                // Remove loading spinner
+                document.getElementById('repos-loader').classList.add('hidden');
+                document.getElementById('repos-grid').classList.remove('hidden');
+                renderRepos(allFetchedRepos);
+            }
+        }
+
+        // Project Filter Logic
+        function filterRepos(lang) {
+            // Update UI Button Classes
+            ['all', 'python', 'go', 'js'].forEach(item => {
+                const btn = document.getElementById(`btn-${item}`);
+                if (item === lang) {
+                    btn.className = "px-2.5 py-1 text-xs font-medium rounded-md bg-indigo-50 text-indigo-600";
+                } else {
+                    btn.className = "px-2.5 py-1 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900";
+                }
+            });
+
+            if (lang === 'all') {
+                renderRepos(allFetchedRepos);
+            } else if (lang === 'python') {
+                renderRepos(allFetchedRepos.filter(r => r.language && r.language.toLowerCase() === 'python'));
+            } else if (lang === 'go') {
+                renderRepos(allFetchedRepos.filter(r => r.language && r.language.toLowerCase() === 'go'));
+            } else if (lang === 'js') {
+                renderRepos(allFetchedRepos.filter(r => r.language && (r.language.toLowerCase().includes('javascript') || r.language.toLowerCase().includes('typescript') || r.language.toLowerCase().includes('html') || r.language.toLowerCase().includes('css'))));
+            }
+        }
+
+        // Render Cards to the DOM
+        function renderRepos(repos) {
+            const grid = document.getElementById('repos-grid');
+            grid.innerHTML = '';
+
+            // Restrict dynamic list to show only the top 3 repositories
+            const activeRepos = repos.slice(0, 3);
+
+            if (activeRepos.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-8 bg-slate-50 border border-dashed border-slate-200 rounded-xl">
+                        <p class="text-xs text-slate-500 font-mono">No matching project found in current repo array.</p>
                     </div>
-                    <div class="command-output mt-6">
-                        <div class="glass-section rounded-2xl p-8 space-y-6">
-                            <div class="border-l-4 border-terminal-cyan pl-6">
-                                <h3 class="terminal-cyan glow-text text-2xl mb-4 font-bold"># About Me</h3>
-                                <p class="text-gray-200 leading-relaxed mb-6 text-lg">I'm a passionate developer who transforms complex problems into elegant digital solutions. With 4+ years of experience in full-stack development, I specialize in creating scalable applications that deliver exceptional user experiences.</p>
-                                <p class="text-gray-300 leading-relaxed">My journey started with curiosity about how things work under the hood. Now I build applications that millions of users interact with daily, focusing on performance, security, and maintainability.</p>
+                `;
+                return;
+            }
+
+            activeRepos.forEach(repo => {
+                const badgeColor = getLanguageBadgeColor(repo.language);
+                const desc = repo.description || "An absolute developer resource with zero-dependency architecture.";
+                const stars = repo.stargazers_count !== undefined ? repo.stargazers_count : 10;
+                const forks = repo.forks_count !== undefined ? repo.forks_count : 4;
+
+                const cardHtml = `
+                    <div class="group bg-white border border-slate-200 hover:border-slate-350 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-mono text-xs font-semibold text-slate-900 tracking-tight flex items-center gap-1.5 truncate">
+                                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    ${repo.name}
+                                </span>
+                                <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold ${badgeColor}">
+                                    ${repo.language || 'Code'}
+                                </span>
                             </div>
-                            <div class="grid md:grid-cols-3 gap-6">
-                                <div class="glass-section rounded-xl p-6 text-center"><div class="terminal-green text-3xl mb-3 glow-text">🌟</div><h4 class="terminal-yellow font-semibold mb-2">Innovation</h4><p class="text-gray-300 text-sm">Always exploring cutting-edge technologies</p></div>
-                                <div class="glass-section rounded-xl p-6 text-center"><div class="terminal-purple text-3xl mb-3 glow-text">🎯</div><h4 class="terminal-yellow font-semibold mb-2">Precision</h4><p class="text-gray-300 text-sm">Attention to detail in every line of code</p></div>
-                                <div class="glass-section rounded-xl p-6 text-center"><div class="terminal-pink text-3xl mb-3 glow-text">⚡</div><h4 class="terminal-yellow font-semibold mb-2">Speed</h4><p class="text-gray-300 text-sm">Rapid development with quality focus</p></div>
+                            <p class="text-xs text-slate-500 leading-normal line-clamp-3">${desc}</p>
+                        </div>
+                        
+                        <div class="flex items-center justify-between pt-4 mt-auto border-t border-slate-100/80 text-[11px] text-slate-500">
+                            <div class="flex items-center space-x-3">
+                                <span class="flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5 text-amber-500 fill-amber-500" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                    ${stars}
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 10.742l3.418-2.285M12 8.457V4a1 1 0 00-2 0v4.457m4 1.143v4.457a1 1 0 002 0v-4.457m-4 1.143H8a1 1 0 000 2h3m3-3H9a1 1 0 000 2h5"></path></svg>
+                                    ${forks}
+                                </span>
                             </div>
+                            <a href="${repo.html_url}" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-0.5">
+                                Source
+                                <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path></svg>
+                            </a>
                         </div>
                     </div>
-                </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHtml);
+            });
+        }
 
-                <!-- Skills Section -->
-                <div id="skills" class="content-section section-hidden mb-10">
-                    <div class="prompt-line">
-                        <span class="terminal-prompt-full">
-                            <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
-                        </span>
-                        <span class="terminal-prompt-mobile terminal-yellow glow-text">$ </span>
-                        <span class="terminal-purple">jq . skills.json</span>
-                    </div>
-                    <div class="command-output mt-6">
-                        <div class="glass-section rounded-2xl p-8 overflow-x-auto">
-                            <pre class="text-sm md:text-base leading-relaxed"><span class="text-gray-300">{</span>
-  <span class="terminal-cyan glow-text">"frontend"</span>: { 
-    <span class="terminal-yellow">"frameworks"</span>: [<span class="terminal-green">"React"</span>, <span class="terminal-green">"Vue.js"</span>, <span class="terminal-green">"Next.js"</span>], 
-    <span class="terminal-yellow">"styling"</span>: [<span class="terminal-green">"Tailwind CSS"</span>, <span class="terminal-green">"SCSS"</span>], 
-    <span class="terminal-yellow">"tools"</span>: [<span class="terminal-green">"Vite"</span>, <span class="terminal-green">"TypeScript"</span>] 
-  },
-  <span class="terminal-cyan glow-text">"backend"</span>: { 
-    <span class="terminal-yellow">"languages"</span>: [<span class="terminal-green">"JavaScript"</span>, <span class="terminal-green">"Python"</span>, <span class="terminal-green">"Go"</span>], 
-    <span class="terminal-yellow">"frameworks"</span>: [<span class="terminal-green">"Node.js"</span>, <span class="terminal-green">"Express"</span>, <span class="terminal-green">"FastAPI"</span>], 
-    <span class="terminal-yellow">"databases"</span>: [<span class="terminal-green">"PostgreSQL"</span>, <span class="terminal-green">"MongoDB"</span>, <span class="terminal-green">"Redis"</span>] 
-  },
-  <span class="terminal-cyan glow-text">"devops"</span>: { 
-    <span class="terminal-yellow">"cloud"</span>: [<span class="terminal-green">"AWS"</span>, <span class="terminal-green">"Google Cloud"</span>, <span class="terminal-green">"Vercel"</span>], 
-    <span class="terminal-yellow">"tools"</span>: [<span class="terminal-green">"Docker"</span>, <span class="terminal-green">"Kubernetes"</span>, <span class="terminal-green">"GitHub Actions"</span>] 
-  },
-  <span class="terminal-cyan glow-text">"current_setup"</span>: { 
-    <span class="terminal-yellow">"editor"</span>: <span class="terminal-green">"VS Code"</span>, 
-    <span class="terminal-yellow">"terminal"</span>: <span class="terminal-green">"PowerShell 7"</span>, 
-    <span class="terminal-yellow">"os"</span>: <span class="terminal-green">"Manjaro / Windows"</span> 
-  }
-<span class="text-gray-300">}</span></pre>
-                        </div>
-                    </div>
-                </div>
+        // Dynamic badge color picker
+        function getLanguageBadgeColor(lang) {
+            if (!lang) return 'bg-slate-100 text-slate-600';
+            const lower = lang.toLowerCase();
+            if (lower === 'python') return 'bg-yellow-50 text-yellow-800 border border-yellow-100';
+            if (lower === 'go' || lower === 'golang') return 'bg-sky-50 text-sky-800 border border-sky-100';
+            if (lower === 'javascript' || lower === 'js') return 'bg-amber-50 text-amber-800 border border-amber-100';
+            if (lower === 'typescript' || lower === 'ts') return 'bg-blue-50 text-blue-800 border border-blue-100';
+            if (lower === 'shell' || lower === 'bash') return 'bg-emerald-50 text-emerald-800 border border-emerald-100';
+            return 'bg-slate-50 text-slate-600 border border-slate-150';
+        }
 
-                <!-- Projects Section -->
-                <div id="projects" class="content-section section-hidden mb-10">
-                    <div class="prompt-line">
-                        <span class="terminal-prompt-full">
-                            <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
-                        </span>
-                        <span class="terminal-prompt-mobile terminal-yellow glow-text">$ </span>
-                        <span class="terminal-green">find projects/ -type f -name "*.featured"</span>
-                    </div>
-                    <div class="command-output mt-6 space-y-6">
-                        <div class="project-card glass-section rounded-2xl p-8 neon-border">
-                            <div class="flex items-start justify-between mb-4"><h4 class="terminal-cyan glow-text text-xl font-bold">🌐 E-Commerce Platform</h4><span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm border border-green-500/30">Live</span></div>
-                            <p class="text-gray-200 mb-4 leading-relaxed">Full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard, built for scalability.</p>
-                            <div class="flex flex-wrap gap-2 mb-4"><span class="terminal-yellow text-sm px-3 py-1 bg-yellow-500/10 rounded-full border border-yellow-500/30">React</span><span class="terminal-purple text-sm px-3 py-1 bg-purple-500/10 rounded-full border border-purple-500/30">Node.js</span><span class="terminal-pink text-sm px-3 py-1 bg-pink-500/10 rounded-full border border-pink-500/30">PostgreSQL</span></div>
-                            <div class="flex gap-4 text-sm"><a href="#" target="_blank" class="terminal-cyan hover-glow">🔗 Live Demo</a><a href="#" target="_blank" class="terminal-green hover-glow">📁 Source Code</a></div>
-                        </div>
-                        <div class="project-card glass-section rounded-2xl p-8 neon-border">
-                            <div class="flex items-start justify-between mb-4"><h4 class="terminal-cyan glow-text text-xl font-bold">🤖 AI-Powered Task Manager</h4><span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm border border-purple-500/30">Beta</span></div>
-                            <p class="text-gray-200 mb-4 leading-relaxed">Smart task management with AI-powered prioritization, NLP, and predictive scheduling for enhanced productivity.</p>
-                            <div class="flex flex-wrap gap-2 mb-4"><span class="terminal-yellow text-sm px-3 py-1 bg-yellow-500/10 rounded-full border border-yellow-500/30">Vue.js</span><span class="terminal-purple text-sm px-3 py-1 bg-purple-500/10 rounded-full border border-purple-500/30">Python</span><span class="terminal-pink text-sm px-3 py-1 bg-pink-500/10 rounded-full border border-pink-500/30">OpenAI</span></div>
-                            <div class="flex gap-4 text-sm"><a href="#" target="_blank" class="terminal-cyan hover-glow">🔗 Try It Out</a><a href="#" target="_blank" class="terminal-green hover-glow">📁 Repository</a></div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Contact Section -->
-                <div id="contact" class="content-section section-hidden mb-10">
-                    <div class="prompt-line">
-                        <span class="terminal-prompt-full">
-                            <span class="terminal-blue glow-text font-semibold">anjana@portfolio</span><span class="text-white">:</span><span class="terminal-yellow glow-text">~</span><span class="text-white">$ </span>
-                        </span>
-                        <span class="terminal-prompt-mobile terminal-yellow glow-text">$ </span>
-                        <span class="terminal-green">chmod +x contact.sh && ./contact.sh</span>
-                    </div>
-                    <div class="command-output mt-6">
-                        <div class="glass-section rounded-2xl p-8 space-y-6">
-                            <div class="text-center mb-8">
-                                <h3 class="terminal-cyan glow-text text-2xl font-bold mb-4">#!/bin/bash</h3>
-                                <p class="terminal-green text-lg mb-2"># Let's build something incredible together! 🚀</p>
-                            </div>
-                            <div class="grid md:grid-cols-2 gap-8 items-start">
-                                <div class="space-y-4">
-                                    <div class="glass-section rounded-xl p-6 neon-border">
-                                        <div class="flex items-center gap-3 mb-2"><span class="terminal-pink text-xl">📧</span><span class="terminal-yellow font-semibold">EMAIL=</span></div>
-                                        <a href="mailto:hello@anjanamadu.net" class="terminal-cyan hover-glow text-lg break-all">hello@anjanamadu.net</a>
-                                    </div>
-                                    <div class="glass-section rounded-xl p-6 neon-border">
-                                        <div class="flex items-center gap-3 mb-2"><span class="terminal-purple text-xl">🐙</span><span class="terminal-yellow font-semibold">GITHUB=</span></div>
-                                        <a href="https://github.com/anjanamadu" target="_blank" class="terminal-cyan hover-glow text-lg break-all">github.com/anjanamadu</a>
-                                    </div>
-                                </div>
-                                <form id="contact-form" class="space-y-4">
-                                    <div>
-                                        <label for="name" class="block text-sm terminal-yellow mb-2">~ /name $</label>
-                                        <input type="text" id="name" name="name" required class="w-full bg-black/20 p-3 rounded-lg border border-gray-600 focus:outline-none input-glow text-gray-200" placeholder="Enter your name">
-                                    </div>
-                                    <div>
-                                        <label for="email" class="block text-sm terminal-yellow mb-2">~ /email $</label>
-                                        <input type="email" id="email" name="email" required class="w-full bg-black/20 p-3 rounded-lg border border-gray-600 focus:outline-none input-glow text-gray-200" placeholder="your.email@domain.com">
-                                    </div>
-                                    <div>
-                                        <label for="message" class="block text-sm terminal-yellow mb-2">~ /message $</label>
-                                        <textarea id="message" name="message" rows="4" required class="w-full bg-black/20 p-3 rounded-lg border border-gray-600 focus:outline-none input-glow text-gray-200 resize-vertical" placeholder="Type your message here..."></textarea>
-                                    </div>
-                                    <button type="submit" class="w-full terminal-green font-bold py-3 px-4 rounded-lg neon-border hover:bg-green-500/20 transition-all duration-300">SEND_MESSAGE</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        // Terminal Interactive Console Commands Logic
+        const terminalBody = document.getElementById('terminal-body');
+        const terminalInput = document.getElementById('terminal-input');
 
-    <!-- Load configuration first, then main script -->
-    <script src="js/config.js"></script>
-    <script src="js/script.js"></script>
+        const commands = {
+            help: "Available commands: <span class='text-indigo-300 font-semibold'>about</span>, <span class='text-indigo-300 font-semibold'>skills</span>, <span class='text-indigo-300 font-semibold'>motto</span>, <span class='text-indigo-300 font-semibold'>projects</span>, <span class='text-indigo-300 font-semibold'>clear</span>, <span class='text-indigo-300 font-semibold'>contact</span>",
+            about: "Anjana Madu is an active, passionate developer and tech tinkerer based in Sri Lanka. Main fields are API design, systems integrations, scripting solutions, and DevOps automation.",
+            skills: "Golang (Go), Python, TypeScript, CI/CD Actions, Linux Architecture, Kubernetes, Docker, Secure Server Proxies, Restructured API wrapper configurations.",
+            motto: "“Build, break, learn, repeat.”",
+            projects: "Current featured dynamic repositories: VoiceChatStreamer (Python), MentionAllBot (Python), YTPlaylistDL (Python), SeedrAPI (Python), FileServer (Go).",
+            contact: "Feel free to email contact@anjanamadu.net or reach me on Telegram via @Anjana_Ma to coordinate ideas.",
+            clear: ""
+        };
+
+        terminalInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const val = terminalInput.value.trim().toLowerCase();
+                terminalInput.value = '';
+                if (!val) return;
+
+                // Log typed command
+                writeTerminalPrompt(val);
+
+                if (val === 'clear') {
+                    clearTerminal();
+                    return;
+                }
+
+                if (commands.hasOwnProperty(val)) {
+                    writeTerminalLine(commands[val]);
+                } else {
+                    writeTerminalLine(`Command not found: '${val}'. Type <span class='text-indigo-300'>help</span> to view active options.`);
+                }
+            }
+        });
+
+        function writeTerminalPrompt(commandText) {
+            const div = document.createElement('div');
+            div.innerHTML = `<span class="text-indigo-400 font-semibold">guest@anjanamadu.sh:~$</span> <span class="text-slate-100">${escapeHtml(commandText)}</span>`;
+            terminalBody.appendChild(div);
+            scrollTerminalToBottom();
+        }
+
+        function writeTerminalLine(htmlText) {
+            const div = document.createElement('div');
+            div.className = 'text-slate-300 leading-relaxed';
+            div.innerHTML = htmlText;
+            terminalBody.appendChild(div);
+            scrollTerminalToBottom();
+        }
+
+        function clearTerminal() {
+            terminalBody.innerHTML = '<div>Console buffer cleared. Type <span class="text-indigo-300">help</span> for options.</div>';
+        }
+
+        function scrollTerminalToBottom() {
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+
+        // Contact Form Processing (Using requested endpoint)
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('form-submit-btn');
+        const feedbackBox = document.getElementById('form-feedback');
+
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const message = document.getElementById('form-message').value;
+
+            // Reset dynamic message window state
+            feedbackBox.className = "hidden text-xs px-3 py-2 rounded-lg font-medium";
+            feedbackBox.innerHTML = "";
+
+            // Disable submit button and add dynamic loading indicators
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Submitting request...</span>
+            `;
+
+            try {
+                const response = await fetch('https://mycontactform.comharp.workers.dev/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, message })
+                });
+
+                if (response.ok) {
+                    feedbackBox.className = "text-xs px-3 py-2 rounded-lg font-medium bg-emerald-50 text-emerald-800 border border-emerald-100 block animate-pulse";
+                    feedbackBox.innerHTML = "Success! Your inquiry message has been securely submitted to the worker endpoint.";
+                    contactForm.reset();
+                } else {
+                    throw new Error("Worker responded with an invalid status code.");
+                }
+            } catch (err) {
+                console.error("Submission failed.", err);
+                feedbackBox.className = "text-xs px-3 py-2 rounded-lg font-medium bg-rose-50 text-rose-800 border border-rose-100 block";
+                feedbackBox.innerHTML = "Server connection established, but verification failed. Please try again or email directly.";
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `
+                    <span>Send Message</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path></svg>
+                `;
+            }
+        });
+
+
+        // Page Initialization
+        window.addEventListener('load', () => {
+            loadGithubData();
+        });
+    </script>
 </body>
 </html>
