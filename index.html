@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anjana M. | Full-Stack, DevOps & Security Portfolio</title>
+    <!-- Theme: applied before paint to avoid a flash of the wrong theme -->
+    <script>
+        (function () {
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (saved === 'dark' || (!saved && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -37,9 +48,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #fafbfc; /* Sleek minimal background */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        html.dark body {
+            background-color: #0b1120;
+        }
+        section {
+            scroll-margin-top: 4.5rem;
         }
         /* Custom scrollbar */
         ::-webkit-scrollbar {
@@ -55,6 +76,15 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
+        }
+        html.dark ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+        html.dark ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
         }
 
         /* Entry Animations */
@@ -76,23 +106,79 @@
         .animation-delay-100 { animation-delay: 100ms; }
         .animation-delay-200 { animation-delay: 200ms; }
         .animation-delay-300 { animation-delay: 300ms; }
+
+        /* Scroll-triggered reveal for sections beyond the first view */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered card entry for dynamically injected project cards */
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-card-in {
+            animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Header gains a subtle shadow once the page scrolls */
+        header.scrolled {
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+        }
+
+        /* Gentle continuous float for the status dot's parent chip */
+        @keyframes softFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+        #hero .inline-flex.items-center.gap-1\.5.bg-emerald-50 {
+            animation: softFloat 3.5s ease-in-out infinite;
+        }
+
+        /* Theme toggle icon crossfade */
+        #theme-toggle .icon-sun, #theme-toggle .icon-moon {
+            transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        #theme-toggle .icon-sun { opacity: 1; transform: scale(1) rotate(0deg); }
+        #theme-toggle .icon-moon { opacity: 0; transform: scale(0.5) rotate(-90deg); position: absolute; }
+        html.dark #theme-toggle .icon-sun { opacity: 0; transform: scale(0.5) rotate(90deg); position: absolute; }
+        html.dark #theme-toggle .icon-moon { opacity: 1; transform: scale(1) rotate(0deg); position: relative; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100 dark:bg-slate-950 dark:text-slate-200 dark:selection:bg-indigo-900">
 
     <!-- Header / Navigation Bar (Sticky & Compact) -->
-    <header class="sticky top-0 z-40 w-full border-b border-slate-200/60 bg-white/85 backdrop-blur-md transition-all duration-300">
+    <header class="sticky top-0 z-40 w-full border-b border-slate-200/60 bg-white/85 backdrop-blur-md transition-all duration-300 dark:border-slate-800/80 dark:bg-slate-950/85">
         <div class="mx-auto flex max-w-4xl h-14 items-center justify-between px-4 sm:px-6">
             <a href="#hero" class="flex items-center space-x-2 group">
-                <span class="font-mono text-xs font-bold bg-slate-900 text-white px-2 py-0.5 rounded transition-all duration-300 group-hover:scale-105 group-hover:bg-indigo-600">AM</span>
-                <span class="font-bold text-sm tracking-tight text-slate-900">Anjana <span class="text-indigo-600 transition-colors duration-300 group-hover:text-slate-900">M.</span></span>
+                <span class="font-mono text-xs font-bold bg-slate-900 text-white px-2 py-0.5 rounded transition-all duration-300 group-hover:scale-105 group-hover:bg-indigo-600 dark:bg-white dark:text-slate-900">AM</span>
+                <span class="font-bold text-sm tracking-tight text-slate-900 dark:text-white">Anjana <span class="text-indigo-600 transition-colors duration-300 group-hover:text-slate-900 dark:group-hover:text-white">M.</span></span>
             </a>
             
-            <nav class="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm font-medium text-slate-600">
-                <a href="#about" class="px-2.5 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-100 transition-all duration-200">About</a>
-                <a href="#terminal" class="px-2.5 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-100 transition-all duration-200">Terminal</a>
-                <a href="#projects" class="px-2.5 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-100 transition-all duration-200">Projects</a>
-                <a href="#contact" class="ml-1 bg-slate-900 text-white px-3.5 py-1.5 rounded-md hover:bg-indigo-600 active:scale-95 transition-all duration-200 shadow-sm">Contact</a>
+            <nav class="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
+                <a href="#about" class="px-2.5 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-100 transition-all duration-200 dark:hover:text-white dark:hover:bg-slate-800">About</a>
+                <a href="#terminal" class="px-2.5 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-100 transition-all duration-200 dark:hover:text-white dark:hover:bg-slate-800">Terminal</a>
+                <a href="#projects" class="px-2.5 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-100 transition-all duration-200 dark:hover:text-white dark:hover:bg-slate-800">Projects</a>
+                <a href="#contact" class="ml-1 bg-slate-900 text-white px-3.5 py-1.5 rounded-md hover:bg-indigo-600 active:scale-95 transition-all duration-200 shadow-sm dark:bg-indigo-600 dark:hover:bg-indigo-500">Contact</a>
+                <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="relative ml-1 w-8 h-8 flex items-center justify-center rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800">
+                    <svg class="icon-sun w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                    <svg class="icon-moon w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg>
+                </button>
             </nav>
         </div>
     </header>
@@ -101,94 +187,95 @@
         
         <!-- Hero Section (Centered & Ultra Clean) -->
         <section id="hero" class="max-w-2xl py-4 space-y-5 opacity-0 animate-fade-in-up">
-            <div class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full transition-transform hover:scale-105 duration-300">
+            <div class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full transition-transform hover:scale-105 duration-300 dark:bg-emerald-950/40 dark:border-emerald-900">
                 <span class="relative flex h-2 w-2">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                <span class="text-[10px] sm:text-xs font-bold text-emerald-800 tracking-wide uppercase">Open to collaborate</span>
+                <span class="text-[10px] sm:text-xs font-bold text-emerald-800 tracking-wide uppercase dark:text-emerald-300">Open to collaborate</span>
             </div>
             
-            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-600">Anjana M.</span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight dark:text-white">
+                Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-600 dark:from-white dark:to-indigo-400">Anjana M.</span>
             </h1>
             
-            <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl" id="hero-bio">
-                Luv open source. Full-stack, DevOps, Cloud, & Security Engineer focusing on robust, production-ready infrastructures and sleek client applications.
+            <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl dark:text-slate-400" id="hero-bio">
+                <span class="inline-block h-4 w-64 max-w-full bg-slate-200 rounded animate-pulse dark:bg-slate-800" aria-hidden="true"></span>
+                <span class="sr-only">Loading bio from GitHub…</span>
             </p>
 
             <!-- Micro Github Stats Counters -->
             <div class="flex flex-wrap items-center gap-3 py-1 text-sm">
-                <div class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200/80 px-3 py-1.5 rounded-lg shadow-sm hover:border-slate-350 transition-colors duration-200">
+                <div class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200/80 px-3 py-1.5 rounded-lg shadow-sm hover:border-slate-350 transition-colors duration-200 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-400">
                     <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    <span class="font-bold text-slate-800" id="stat-followers">232+</span>
-                    <span class="text-slate-500 text-xs">Followers</span>
+                    <span class="font-bold text-slate-800 dark:text-slate-100" id="stat-followers">232+</span>
+                    <span class="text-slate-500 text-xs dark:text-slate-500">Followers</span>
                 </div>
-                <div class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200/80 px-3 py-1.5 rounded-lg shadow-sm hover:border-slate-350 transition-colors duration-200">
+                <div class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200/80 px-3 py-1.5 rounded-lg shadow-sm hover:border-slate-350 transition-colors duration-200 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-400">
                     <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                    <span class="font-bold text-slate-800" id="stat-repos">48+</span>
-                    <span class="text-slate-500 text-xs">Repos</span>
+                    <span class="font-bold text-slate-800 dark:text-slate-100" id="stat-repos">48+</span>
+                    <span class="text-slate-500 text-xs dark:text-slate-500">Repos</span>
                 </div>
-                <a href="https://github.com/anjanamadu" target="_blank" class="flex items-center space-x-1 text-indigo-600 hover:text-indigo-800 hover:translate-x-0.5 transition-all duration-200 font-semibold text-xs sm:text-sm">
+                <a href="https://github.com/anjanamadu" target="_blank" class="flex items-center space-x-1 text-indigo-600 hover:text-indigo-800 hover:translate-x-0.5 transition-all duration-200 font-semibold text-xs sm:text-sm dark:text-indigo-400 dark:hover:text-indigo-300">
                     <span>Visit Profile</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path></svg>
                 </a>
             </div>
 
             <div class="flex gap-3 pt-1">
-                <a href="#projects" class="inline-flex items-center justify-center bg-slate-900 text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-lg hover:bg-indigo-600 hover:scale-102 active:scale-98 transition-all duration-200 shadow-sm gap-2">
+                <a href="#projects" class="inline-flex items-center justify-center bg-slate-900 text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-lg hover:bg-indigo-600 hover:scale-102 active:scale-98 transition-all duration-200 shadow-sm gap-2 dark:bg-indigo-600 dark:hover:bg-indigo-500">
                     View Projects
                 </a>
-                <a href="#contact" class="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-700 font-semibold text-xs sm:text-sm px-4 py-2 rounded-lg hover:bg-slate-100 hover:scale-102 active:scale-98 transition-all duration-200 shadow-sm gap-2">
+                <a href="#contact" class="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-700 font-semibold text-xs sm:text-sm px-4 py-2 rounded-lg hover:bg-slate-100 hover:scale-102 active:scale-98 transition-all duration-200 shadow-sm gap-2 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800">
                     Let's Talk
                 </a>
             </div>
         </section>
 
         <!-- About / Core Pillars -->
-        <section id="about" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8 border-t border-slate-200/60 opacity-0 animate-fade-in-up animation-delay-100">
-            <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg w-fit mb-3 transition-colors duration-300 group-hover:bg-indigo-100">
+        <section id="about" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8 border-t border-slate-200/60 opacity-0 animate-fade-in-up animation-delay-100 dark:border-slate-800/60">
+            <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 dark:bg-slate-900 dark:border-slate-800">
+                <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg w-fit mb-3 transition-colors duration-300 group-hover:bg-indigo-100 dark:bg-indigo-950/50 dark:text-indigo-400">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                 </div>
-                <h3 class="font-bold text-slate-900 text-sm mb-1.5">Full-Stack Engineering</h3>
-                <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                <h3 class="font-bold text-slate-900 text-sm mb-1.5 dark:text-white">Full-Stack Engineering</h3>
+                <p class="text-xs sm:text-sm text-slate-500 leading-relaxed dark:text-slate-400">
                     Crafting highly performant web architectures with Clean Code, Go, Python, and JavaScript. Focused on modular APIs and solid design patterns.
                 </p>
             </div>
 
-            <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                <div class="p-2 bg-sky-50 text-sky-600 rounded-lg w-fit mb-3">
+            <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 dark:bg-slate-900 dark:border-slate-800">
+                <div class="p-2 bg-sky-50 text-sky-600 rounded-lg w-fit mb-3 dark:bg-sky-950/50 dark:text-sky-400">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
-                <h3 class="font-bold text-slate-900 text-sm mb-1.5">DevOps & Cloud</h3>
-                <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                <h3 class="font-bold text-slate-900 text-sm mb-1.5 dark:text-white">DevOps & Cloud</h3>
+                <p class="text-xs sm:text-sm text-slate-500 leading-relaxed dark:text-slate-400">
                     Managing container environments, CI/CD automated build pipelines, secure virtual clouds, and optimized server configurations for rock-solid deployments.
                 </p>
             </div>
 
-            <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg w-fit mb-3">
+            <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 dark:bg-slate-900 dark:border-slate-800">
+                <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg w-fit mb-3 dark:bg-emerald-950/50 dark:text-emerald-400">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                 </div>
-                <h3 class="font-bold text-slate-900 text-sm mb-1.5">Security Auditing</h3>
-                <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                <h3 class="font-bold text-slate-900 text-sm mb-1.5 dark:text-white">Security Auditing</h3>
+                <p class="text-xs sm:text-sm text-slate-500 leading-relaxed dark:text-slate-400">
                     Analyzing vulnerabilities, implementing reverse proxies, isolating APIs, and applying modern server protection to guard against system intrusions.
                 </p>
             </div>
         </section>
 
         <!-- Interactive DevOps Terminal Section -->
-        <section id="terminal" class="space-y-4 pt-2 opacity-0 animate-fade-in-up animation-delay-200">
+        <section id="terminal" class="space-y-4 pt-2 reveal-on-scroll">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-base font-bold tracking-tight text-slate-900">Interactive Bio Terminal</h2>
-                    <p class="text-xs sm:text-sm text-slate-500">Query the portfolio interactively like a system administrator.</p>
+                    <h2 class="text-base font-bold tracking-tight text-slate-900 dark:text-white">Interactive Bio Terminal</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Query the portfolio interactively like a system administrator.</p>
                 </div>
-                <span class="text-[10px] font-mono text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded animate-pulse">Active CLI v1.2</span>
+                <span class="text-[10px] font-mono text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded animate-pulse dark:bg-indigo-950/50 dark:border-indigo-900 dark:text-indigo-400">Active CLI v1.2</span>
             </div>
 
-            <div class="bg-slate-900 rounded-xl overflow-hidden shadow-lg border border-slate-800 transition-shadow duration-300 hover:shadow-indigo-900/10">
+            <div class="bg-slate-900 rounded-xl overflow-hidden shadow-lg border border-slate-800 transition-shadow duration-300 hover:shadow-indigo-900/10 dark:border-slate-700 dark:shadow-black/40">
                 <!-- Terminal Titlebar -->
                 <div class="flex items-center justify-between px-4 py-2.5 bg-slate-850 border-b border-slate-800">
                     <div class="flex items-center space-x-1.5">
@@ -219,24 +306,24 @@
         </section>
 
         <!-- Live Projects Grid (Fetched dynamically with Github API & sorted by Popularity) -->
-        <section id="projects" class="space-y-4 pt-2 border-t border-slate-200/60 opacity-0 animate-fade-in-up animation-delay-200">
+        <section id="projects" class="space-y-4 pt-2 border-t border-slate-200/60 reveal-on-scroll dark:border-slate-800/60">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <div>
-                    <h2 class="text-base font-bold tracking-tight text-slate-900">Most Popular Projects & Tools</h2>
-                    <p class="text-xs sm:text-sm text-slate-500">Live statistics sorted automatically by stars count directly from Github API.</p>
+                    <h2 class="text-base font-bold tracking-tight text-slate-900 dark:text-white">Most Popular Projects & Tools</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Live statistics sorted automatically by stars count directly from Github API.</p>
                 </div>
-                <div class="mt-2.5 sm:mt-0 flex items-center space-x-1 bg-white border border-slate-200 p-0.5 rounded-lg">
-                    <button onclick="filterRepos('all')" id="btn-all" class="px-3 py-1 text-xs font-semibold rounded-md bg-indigo-50 text-indigo-600 transition-colors duration-200">All</button>
-                    <button onclick="filterRepos('python')" id="btn-python" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-colors duration-200">Python</button>
-                    <button onclick="filterRepos('go')" id="btn-go" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-colors duration-200">Go</button>
-                    <button onclick="filterRepos('js')" id="btn-js" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-colors duration-200">Web</button>
+                <div class="mt-2.5 sm:mt-0 flex items-center space-x-1 bg-white border border-slate-200 p-0.5 rounded-lg dark:bg-slate-900 dark:border-slate-800">
+                    <button onclick="filterRepos('all')" id="btn-all" class="px-3 py-1 text-xs font-semibold rounded-md bg-indigo-50 text-indigo-600 transition-colors duration-200 dark:bg-indigo-950/50 dark:text-indigo-400">All</button>
+                    <button onclick="filterRepos('python')" id="btn-python" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-colors duration-200 dark:text-slate-400 dark:hover:text-white">Python</button>
+                    <button onclick="filterRepos('go')" id="btn-go" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-colors duration-200 dark:text-slate-400 dark:hover:text-white">Go</button>
+                    <button onclick="filterRepos('js')" id="btn-js" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-colors duration-200 dark:text-slate-400 dark:hover:text-white">Web</button>
                 </div>
             </div>
 
             <!-- Loader Indicator -->
             <div id="repos-loader" class="flex flex-col items-center justify-center py-12 space-y-2">
-                <div class="w-7 h-7 border-3 border-slate-200 border-t-indigo-600 rounded-full animate-spin"></div>
-                <p class="text-xs text-slate-400 font-mono">Querying github.com API...</p>
+                <div class="w-7 h-7 border-3 border-slate-200 border-t-indigo-600 rounded-full animate-spin dark:border-slate-700 dark:border-t-indigo-500"></div>
+                <p class="text-xs text-slate-400 font-mono dark:text-slate-500">Querying github.com API...</p>
             </div>
 
             <!-- Projects Grid Container (Exclusively showing Top 3 Popular Repos) -->
@@ -246,44 +333,44 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6 border-t border-slate-200/60 opacity-0 animate-fade-in-up animation-delay-300">
+        <section id="contact" class="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6 border-t border-slate-200/60 reveal-on-scroll dark:border-slate-800/60">
             <!-- Left Info Column -->
             <div class="md:col-span-5 space-y-4">
                 <div>
-                    <h2 class="text-base font-bold tracking-tight text-slate-900">Start a Project</h2>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">
+                    <h2 class="text-base font-bold tracking-tight text-slate-900 dark:text-white">Start a Project</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed dark:text-slate-400">
                         Looking for a clean automation process, reliable backend, or infrastructure integration? Let's engineer something great together.
                     </p>
                 </div>
 
                 <div class="space-y-2.5 text-xs">
-                    <div class="flex items-center space-x-3 bg-white border border-slate-200/85 p-2.5 rounded-lg shadow-xs hover:border-slate-300 hover:shadow-sm transition-all duration-200">
-                        <div class="p-1.5 bg-indigo-50 text-indigo-600 rounded-md">
+                    <div class="flex items-center space-x-3 bg-white border border-slate-200/85 p-2.5 rounded-lg shadow-xs hover:border-slate-300 hover:shadow-sm transition-all duration-200 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-slate-700">
+                        <div class="p-1.5 bg-indigo-50 text-indigo-600 rounded-md dark:bg-indigo-950/50 dark:text-indigo-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-[9px] text-slate-400 font-semibold tracking-wider">EMAIL ME</p>
-                            <a href="mailto:contact@anjanamadu.net" class="font-bold text-slate-800 hover:text-indigo-600 text-xs sm:text-sm transition-colors duration-150">contact@anjanamadu.net</a>
+                            <p class="text-[9px] text-slate-400 font-semibold tracking-wider dark:text-slate-500">EMAIL ME</p>
+                            <a href="mailto:contact@anjanamadu.net" class="font-bold text-slate-800 hover:text-indigo-600 text-xs sm:text-sm transition-colors duration-150 dark:text-slate-100 dark:hover:text-indigo-400">contact@anjanamadu.net</a>
                         </div>
                     </div>
 
-                    <div class="flex items-center space-x-3 bg-white border border-slate-200/85 p-2.5 rounded-lg shadow-xs hover:border-slate-300 hover:shadow-sm transition-all duration-200">
-                        <div class="p-1.5 bg-emerald-50 text-emerald-600 rounded-md">
+                    <div class="flex items-center space-x-3 bg-white border border-slate-200/85 p-2.5 rounded-lg shadow-xs hover:border-slate-300 hover:shadow-sm transition-all duration-200 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-slate-700">
+                        <div class="p-1.5 bg-emerald-50 text-emerald-600 rounded-md dark:bg-emerald-950/50 dark:text-emerald-400">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 12h4v2H4v-2zm0 4h4v2H4v-2zm0-8h4v2H4V8zm16 10H10v-2h10v2zm0-4H10v-2h10v2zm0-4H10V8h10v2z"/></svg>
                         </div>
                         <div>
-                            <p class="text-[9px] text-slate-400 font-semibold tracking-wider">TELEGRAM HANDLE</p>
-                            <a href="https://t.me/Anjana_Ma" target="_blank" class="font-bold text-slate-800 hover:text-indigo-600 text-xs sm:text-sm transition-colors duration-150">@Anjana_Ma</a>
+                            <p class="text-[9px] text-slate-400 font-semibold tracking-wider dark:text-slate-500">TELEGRAM HANDLE</p>
+                            <a href="https://t.me/Anjana_Ma" target="_blank" class="font-bold text-slate-800 hover:text-indigo-600 text-xs sm:text-sm transition-colors duration-150 dark:text-slate-100 dark:hover:text-indigo-400">@Anjana_Ma</a>
                         </div>
                     </div>
 
-                    <div class="flex items-center space-x-3 bg-white border border-slate-200/85 p-2.5 rounded-lg shadow-xs hover:border-slate-300 hover:shadow-sm transition-all duration-200">
-                        <div class="p-1.5 bg-indigo-50 text-indigo-600 rounded-md">
+                    <div class="flex items-center space-x-3 bg-white border border-slate-200/85 p-2.5 rounded-lg shadow-xs hover:border-slate-300 hover:shadow-sm transition-all duration-200 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-slate-700">
+                        <div class="p-1.5 bg-indigo-50 text-indigo-600 rounded-md dark:bg-indigo-950/50 dark:text-indigo-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11.5V9m.608-6.285A13.953 13.953 0 0112 5c1.01 0 1.981-.135 2.9-.386a3.375 3.375 0 004.553 4.103M15 11.5a3 3 0 01-6 0M3 20h6M21 20h-6M18 10a3 3 0 00-3-3V4a3 3 0 00-6 0v3A3 3 0 006 10h12z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-[9px] text-slate-400 font-semibold tracking-wider">WEBSITE</p>
-                            <a href="https://anjanamadu.net" target="_blank" class="font-bold text-slate-800 hover:text-indigo-600 text-xs sm:text-sm transition-colors duration-150">anjanamadu.net</a>
+                            <p class="text-[9px] text-slate-400 font-semibold tracking-wider dark:text-slate-500">WEBSITE</p>
+                            <a href="https://anjanamadu.net" target="_blank" class="font-bold text-slate-800 hover:text-indigo-600 text-xs sm:text-sm transition-colors duration-150 dark:text-slate-100 dark:hover:text-indigo-400">anjanamadu.net</a>
                         </div>
                     </div>
                 </div>
@@ -291,27 +378,27 @@
 
             <!-- Right Interactive Contact Form -->
             <div class="md:col-span-7">
-                <form id="contact-form" class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs space-y-4 hover:shadow-md transition-shadow duration-300">
+                <form id="contact-form" class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs space-y-4 hover:shadow-md transition-shadow duration-300 dark:bg-slate-900 dark:border-slate-800">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
-                            <label for="form-name" class="text-xs font-semibold text-slate-700">Full Name</label>
-                            <input type="text" id="form-name" required placeholder="John Doe" class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all duration-200" />
+                            <label for="form-name" class="text-xs font-semibold text-slate-700 dark:text-slate-300">Full Name</label>
+                            <input type="text" id="form-name" required placeholder="John Doe" class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all duration-200 dark:bg-slate-950/60 dark:border-slate-700 dark:text-slate-100 dark:placeholder-slate-600 dark:focus:bg-slate-950" />
                         </div>
                         <div class="space-y-1.5">
-                            <label for="form-email" class="text-xs font-semibold text-slate-700">Email Address</label>
-                            <input type="email" id="form-email" required placeholder="johndoe@example.com" class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all duration-200" />
+                            <label for="form-email" class="text-xs font-semibold text-slate-700 dark:text-slate-300">Email Address</label>
+                            <input type="email" id="form-email" required placeholder="johndoe@example.com" class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all duration-200 dark:bg-slate-950/60 dark:border-slate-700 dark:text-slate-100 dark:placeholder-slate-600 dark:focus:bg-slate-950" />
                         </div>
                     </div>
 
                     <div class="space-y-1.5">
-                        <label for="form-message" class="text-xs font-semibold text-slate-700">Project Detail / Message</label>
-                        <textarea id="form-message" required rows="3" placeholder="Tell me about your project context..." class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all duration-200 resize-none"></textarea>
+                        <label for="form-message" class="text-xs font-semibold text-slate-700 dark:text-slate-300">Project Detail / Message</label>
+                        <textarea id="form-message" required rows="3" placeholder="Tell me about your project context..." class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all duration-200 resize-none dark:bg-slate-950/60 dark:border-slate-700 dark:text-slate-100 dark:placeholder-slate-600 dark:focus:bg-slate-950"></textarea>
                     </div>
 
                     <!-- Dynamic Notification States -->
                     <div id="form-feedback" class="hidden text-sm px-3 py-2 rounded-lg font-medium"></div>
 
-                    <button type="submit" id="form-submit-btn" class="w-full bg-slate-900 text-white hover:bg-indigo-600 active:scale-98 text-sm font-semibold py-2.5 rounded-lg transition-all duration-200 shadow-sm flex items-center justify-center space-x-2 cursor-pointer">
+                    <button type="submit" id="form-submit-btn" class="w-full bg-slate-900 text-white hover:bg-indigo-600 active:scale-98 text-sm font-semibold py-2.5 rounded-lg transition-all duration-200 shadow-sm flex items-center justify-center space-x-2 cursor-pointer dark:bg-indigo-600 dark:hover:bg-indigo-500">
                         <span>Send Message</span>
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path></svg>
                     </button>
@@ -322,13 +409,13 @@
     </main>
 
     <!-- Compact Footer -->
-    <footer class="mt-12 bg-white border-t border-slate-200/80 py-5">
-        <div class="mx-auto max-w-4xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+    <footer class="mt-12 bg-white border-t border-slate-200/80 py-5 dark:bg-slate-950 dark:border-slate-800">
+        <div class="mx-auto max-w-4xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-500">
             <p>&copy; 2026 Anjana M. Built with modern, compact web design frameworks.</p>
             <div class="flex items-center space-x-3.5">
-                <a href="https://github.com/anjanamadu" target="_blank" class="hover:text-slate-900 transition-colors">GitHub</a>
-                <a href="https://t.me/Anjana_Ma" target="_blank" class="hover:text-slate-900 transition-colors">Telegram</a>
-                <a href="https://anjanamadu.net" target="_blank" class="hover:text-slate-900 transition-colors">Website</a>
+                <a href="https://github.com/anjanamadu" target="_blank" class="hover:text-slate-900 transition-colors dark:hover:text-white">GitHub</a>
+                <a href="https://t.me/Anjana_Ma" target="_blank" class="hover:text-slate-900 transition-colors dark:hover:text-white">Telegram</a>
+                <a href="https://anjanamadu.net" target="_blank" class="hover:text-slate-900 transition-colors dark:hover:text-white">Website</a>
             </div>
         </div>
     </footer>
@@ -387,6 +474,35 @@
             }
         ];
 
+        // Reveal sections as they scroll into view
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealTargets = document.querySelectorAll('.reveal-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            revealTargets.forEach(el => observer.observe(el));
+
+            // Subtle header shadow once the page is scrolled
+            const header = document.querySelector('header');
+            const toggleHeaderShadow = () => {
+                header.classList.toggle('scrolled', window.scrollY > 8);
+            };
+            toggleHeaderShadow();
+            window.addEventListener('scroll', toggleHeaderShadow, { passive: true });
+
+            // Dark mode theme switcher
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+        });
+
         let allFetchedRepos = [];
 
         // Dynamic API Hydrator
@@ -402,6 +518,10 @@
                     document.getElementById('hero-bio').innerText = userData.bio || fallbackUser.bio;
                     document.getElementById('stat-followers').innerText = userData.followers || fallbackUser.followers;
                     document.getElementById('stat-repos').innerText = userData.public_repos || fallbackUser.public_repos;
+                } else {
+                    document.getElementById('hero-bio').innerText = fallbackUser.bio;
+                    document.getElementById('stat-followers').innerText = fallbackUser.followers;
+                    document.getElementById('stat-repos').innerText = fallbackUser.public_repos;
                 }
 
                 // Fetch Repositories
@@ -419,6 +539,9 @@
                 }
             } catch (err) {
                 console.error("GitHub API failed, falling back to cached assets.", err);
+                document.getElementById('hero-bio').innerText = fallbackUser.bio;
+                document.getElementById('stat-followers').innerText = fallbackUser.followers;
+                document.getElementById('stat-repos').innerText = fallbackUser.public_repos;
                 allFetchedRepos = fallbackRepos;
             } finally {
                 // Sort by Stargazers Count (Popularity) DESCENDING
@@ -437,9 +560,9 @@
             ['all', 'python', 'go', 'js'].forEach(item => {
                 const btn = document.getElementById(`btn-${item}`);
                 if (item === lang) {
-                    btn.className = "px-3 py-1 text-xs font-semibold rounded-md bg-indigo-50 text-indigo-600 transition-colors duration-200";
+                    btn.className = "px-3 py-1 text-xs font-semibold rounded-md bg-indigo-50 text-indigo-600 transition-colors duration-200 dark:bg-indigo-950/50 dark:text-indigo-400";
                 } else {
-                    btn.className = "px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-colors duration-200";
+                    btn.className = "px-3 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition-colors duration-200 dark:text-slate-400 dark:hover:text-white";
                 }
             });
 
@@ -464,35 +587,35 @@
 
             if (activeRepos.length === 0) {
                 grid.innerHTML = `
-                    <div class="col-span-full text-center py-8 bg-slate-50 border border-dashed border-slate-200 rounded-xl">
-                        <p class="text-xs sm:text-sm text-slate-500 font-mono">No matching project found in current filter.</p>
+                    <div class="col-span-full text-center py-8 bg-slate-50 border border-dashed border-slate-200 rounded-xl dark:bg-slate-900 dark:border-slate-700">
+                        <p class="text-xs sm:text-sm text-slate-500 font-mono dark:text-slate-400">No matching project found in current filter.</p>
                     </div>
                 `;
                 return;
             }
 
-            activeRepos.forEach(repo => {
+            activeRepos.forEach((repo, i) => {
                 const badgeColor = getLanguageBadgeColor(repo.language);
                 const desc = repo.description || "An absolute developer resource with zero-dependency architecture.";
                 const stars = repo.stargazers_count !== undefined ? repo.stargazers_count : 0;
                 const forks = repo.forks_count !== undefined ? repo.forks_count : 0;
 
                 const cardHtml = `
-                    <div class="group bg-white border border-slate-200 hover:border-slate-300 hover:-translate-y-1 rounded-xl p-5 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full">
+                    <div style="animation-delay:${i * 80}ms" class="group opacity-0 animate-card-in bg-white border border-slate-200 hover:border-slate-300 hover:-translate-y-1 rounded-xl p-5 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full dark:bg-slate-900 dark:border-slate-800 dark:hover:border-slate-700">
                         <div class="space-y-3">
                             <div class="flex items-center justify-between">
-                                <span class="font-mono text-xs sm:text-sm font-semibold text-slate-900 tracking-tight flex items-center gap-1.5 truncate">
-                                    <svg class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-colors duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <span class="font-mono text-xs sm:text-sm font-semibold text-slate-900 tracking-tight flex items-center gap-1.5 truncate dark:text-white">
+                                    <svg class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-colors duration-200 dark:group-hover:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     ${repo.name}
                                 </span>
                                 <span class="text-[10px] px-2 py-0.5 rounded-full font-bold transition-all duration-300 group-hover:scale-105 ${badgeColor}">
                                     ${repo.language || 'Code'}
                                 </span>
                             </div>
-                            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed line-clamp-3">${desc}</p>
+                            <p class="text-xs sm:text-sm text-slate-500 leading-relaxed line-clamp-3 dark:text-slate-400">${desc}</p>
                         </div>
                         
-                        <div class="flex items-center justify-between pt-3.5 mt-4 border-t border-slate-100 text-xs text-slate-500">
+                        <div class="flex items-center justify-between pt-3.5 mt-4 border-t border-slate-100 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-500">
                             <div class="flex items-center space-x-3.5 font-mono text-[11px]">
                                 <span class="flex items-center gap-1" title="Stars">
                                     <svg class="w-3.5 h-3.5 text-amber-500 fill-amber-500" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -503,7 +626,7 @@
                                     ${forks}
                                 </span>
                             </div>
-                            <a href="${repo.html_url}" target="_blank" class="text-indigo-600 hover:text-indigo-850 font-bold flex items-center gap-0.5 transition-colors duration-150">
+                            <a href="${repo.html_url}" target="_blank" class="text-indigo-600 hover:text-indigo-850 font-bold flex items-center gap-0.5 transition-colors duration-150 dark:text-indigo-400 dark:hover:text-indigo-300">
                                 Source
                                 <svg class="w-3 h-3 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path></svg>
                             </a>
@@ -516,14 +639,14 @@
 
         // Dynamic badge color picker
         function getLanguageBadgeColor(lang) {
-            if (!lang) return 'bg-slate-100 text-slate-600';
+            if (!lang) return 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400';
             const lower = lang.toLowerCase();
-            if (lower === 'python') return 'bg-yellow-50 text-yellow-800 border border-yellow-100';
-            if (lower === 'go' || lower === 'golang') return 'bg-sky-50 text-sky-800 border border-sky-100';
-            if (lower === 'javascript' || lower === 'js') return 'bg-amber-50 text-amber-800 border border-amber-100';
-            if (lower === 'typescript' || lower === 'ts') return 'bg-blue-50 text-blue-800 border border-blue-100';
-            if (lower === 'shell' || lower === 'bash') return 'bg-emerald-50 text-emerald-800 border border-emerald-100';
-            return 'bg-slate-50 text-slate-600 border border-slate-150';
+            if (lower === 'python') return 'bg-yellow-50 text-yellow-800 border border-yellow-100 dark:bg-yellow-950/40 dark:text-yellow-300 dark:border-yellow-900';
+            if (lower === 'go' || lower === 'golang') return 'bg-sky-50 text-sky-800 border border-sky-100 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-900';
+            if (lower === 'javascript' || lower === 'js') return 'bg-amber-50 text-amber-800 border border-amber-100 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900';
+            if (lower === 'typescript' || lower === 'ts') return 'bg-blue-50 text-blue-800 border border-blue-100 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900';
+            if (lower === 'shell' || lower === 'bash') return 'bg-emerald-50 text-emerald-800 border border-emerald-100 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900';
+            return 'bg-slate-50 text-slate-600 border border-slate-150 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700';
         }
 
 
@@ -627,7 +750,7 @@
                 });
 
                 if (response.ok) {
-                    feedbackBox.className = "text-sm px-3 py-2 rounded-lg font-medium bg-emerald-50 text-emerald-800 border border-emerald-100 block animate-pulse";
+                    feedbackBox.className = "text-sm px-3 py-2 rounded-lg font-medium bg-emerald-50 text-emerald-800 border border-emerald-100 block animate-pulse dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900";
                     feedbackBox.innerHTML = "Success! Your inquiry message has been securely submitted to the worker endpoint.";
                     contactForm.reset();
                 } else {
@@ -635,7 +758,7 @@
                 }
             } catch (err) {
                 console.error("Submission failed.", err);
-                feedbackBox.className = "text-sm px-3 py-2 rounded-lg font-medium bg-rose-50 text-rose-800 border border-rose-100 block animate-fade-in";
+                feedbackBox.className = "text-sm px-3 py-2 rounded-lg font-medium bg-rose-50 text-rose-800 border border-rose-100 block animate-fade-in dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900";
                 feedbackBox.innerHTML = "Server connection established, but verification failed. Please try again or email directly.";
             } finally {
                 // Re-enable button
