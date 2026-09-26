@@ -3,6 +3,7 @@ import { Volume2, ExternalLink } from 'lucide-react';
 import { motion } from 'motion/react';
 import { PROFILE_DATA } from '../data';
 import { GitHubStatsCard } from './GitHubStatsCard';
+import { GeometricArt } from './GeometricArt';
 
 interface ProfileProps {
   onPlaySynth: () => void;
@@ -19,22 +20,14 @@ export const Profile: React.FC<ProfileProps> = ({ onPlaySynth, isPlaying }) => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        {/* Left Column: Portrait Photo with editorial caption (5 cols, Frame 017-020) */}
+        {/* Left Column: Interactive Geometric HTML/SVG Art (5 cols, Frame 017-020) */}
         <div className="lg:col-span-5 flex flex-col">
-          <div className="relative rounded-2xl overflow-hidden bg-neutral-100 border border-black/10 aspect-[3/4] shadow-md group">
-            <img
-              src={PROFILE_DATA.avatarUrl}
-              alt="Anjana M. Portrait"
-              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent pointer-events-none" />
-          </div>
+          <GeometricArt isPlaying={isPlaying} />
 
-          {/* Hairline Caption below image (Frame 018-020) */}
+          {/* Hairline Caption below geometric artwork */}
           <div className="flex items-center justify-between text-[11px] font-mono tracking-[0.2em] text-neutral-500 pt-3 border-t border-black/10 mt-3 uppercase">
-            <span>NO. 001 — PORTRAIT</span>
-            <span className="font-bold text-neutral-800">OPEN SOURCE</span>
+            <span>NO. 001 — GEOMETRIC SYSTEM</span>
+            <span className="font-jp font-medium text-neutral-800">幾何学体系</span>
           </div>
         </div>
 
