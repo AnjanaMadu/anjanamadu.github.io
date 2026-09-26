@@ -1,12 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X, ExternalLink, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { PROJECTS_DATA } from '../data';
+import { PROJECTS_DATA, PROFILE_DATA } from '../data';
 import { ProjectItem } from '../types';
 
 export const Gallery: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [selectedItem, setSelectedItem] = useState<ProjectItem | null>(null);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
 
   // Close on Escape key
   useEffect(() => {
@@ -19,9 +20,20 @@ export const Gallery: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Track horizontal scroll progress (Frame 046)
+  const handleScrollProgress = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const totalScrollable = scrollWidth - clientWidth;
+      if (totalScrollable > 0) {
+        setScrollProgress((scrollLeft / totalScrollable) * 100);
+      }
+    }
+  };
+
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 360;
+      const scrollAmount = 380;
       scrollContainerRef.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth'
@@ -29,9 +41,16 @@ export const Gallery: React.FC = () => {
     }
   };
 
+  const scrollToContact = () => {
+    const contactElem = document.getElementById('contact');
+    if (contactElem) {
+      contactElem.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="projects" className="py-24 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
-      {/* Top Header Row */}
+    <section id="projects" className="py-24 max-w-7xl mx-auto scroll-mt-20 overflow-hidden select-none">
+      {/* Top Header Row (Frame 036) */}
       <div className="px-6 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
         <div>
           {/* Section Tag */}
@@ -40,7 +59,7 @@ export const Gallery: React.FC = () => {
             <span className="font-semibold text-neutral-800">04 SHOWCASE</span>
           </div>
 
-          {/* Heading: "Selected Works" with "Works" in script cursive */}
+          {/* Heading: "Selected Works" with "Works" in script cursive (Frame 036) */}
           <h2 className="text-4xl sm:text-6xl md:text-7xl font-normal text-neutral-900 tracking-tight flex items-baseline gap-3 flex-wrap">
             <span className="font-editorial">Selected</span>
             <span className="font-script text-5xl sm:text-7xl md:text-8xl text-neutral-800 italic transform -rotate-1">
@@ -49,10 +68,10 @@ export const Gallery: React.FC = () => {
           </h2>
         </div>
 
-        {/* Right Helper & Navigation Controls */}
+        {/* Right Helper & Navigation Controls (Frame 036) */}
         <div className="flex items-center gap-4">
           <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-neutral-400 select-none hidden md:inline">
-            SLIDE TO EXPLORE →
+            SWIPE TO EXPLORE →
           </span>
 
           <div className="flex items-center gap-2">
@@ -74,24 +93,25 @@ export const Gallery: React.FC = () => {
         </div>
       </div>
 
-      {/* Horizontal Carousel Track */}
+      {/* Horizontal Carousel Track (Frame 037-046) */}
       <div
         ref={scrollContainerRef}
-        className="flex items-center gap-6 px-6 overflow-x-auto no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing pb-6"
+        onScroll={handleScrollProgress}
+        className="flex items-center gap-6 px-6 overflow-x-auto no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing pb-8"
       >
         {PROJECTS_DATA.map((item) => {
           if (item.type === 'graphic') {
             return (
               <div
                 key={item.id}
-                className="w-68 sm:w-76 md:w-80 h-[28rem] rounded-2xl bg-[#121212] text-white p-8 flex flex-col justify-between shrink-0 shadow-lg border border-neutral-800 select-none transition-transform hover:scale-[1.01]"
+                className="w-72 sm:w-80 h-[28rem] sm:h-[30rem] rounded-2xl bg-[#121212] text-white p-8 flex flex-col justify-between shrink-0 shadow-lg border border-neutral-800 select-none transition-transform hover:scale-[1.01]"
               >
                 {/* Header Tag */}
                 <div className="text-[10px] font-mono tracking-[0.25em] text-neutral-400 uppercase">
                   ENGINEERING — OPEN SOURCE
                 </div>
 
-                {/* Central Japanese Vertical Typographic Art */}
+                {/* Central Japanese Vertical Typographic Art (Frame 038-040) */}
                 <div className="flex flex-col items-center my-auto">
                   <div className="font-jp text-5xl md:text-6xl tracking-[0.3em] font-light text-neutral-100 select-none [writing-mode:vertical-rl]">
                     アンジャナ
@@ -101,7 +121,7 @@ export const Gallery: React.FC = () => {
                 {/* Footer Subtext */}
                 <div className="border-t border-neutral-800 pt-4 text-center">
                   <span className="font-sans text-[11px] tracking-[0.25em] text-neutral-400 uppercase font-medium">
-                    ANJANA MADU
+                    ANJANA M.
                   </span>
                 </div>
               </div>
@@ -112,7 +132,7 @@ export const Gallery: React.FC = () => {
             <div
               key={item.id}
               onClick={() => setSelectedItem(item)}
-              className="w-68 sm:w-76 md:w-80 h-[28rem] rounded-2xl bg-white border border-black/10 overflow-hidden shrink-0 shadow-md flex flex-col justify-between p-6 group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative"
+              className="w-72 sm:w-80 h-[28rem] sm:h-[30rem] rounded-2xl bg-white border border-black/10 overflow-hidden shrink-0 shadow-md flex flex-col justify-between p-6 group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative"
             >
               {/* Top Tag & Language */}
               <div>
@@ -165,9 +185,33 @@ export const Gallery: React.FC = () => {
             </div>
           );
         })}
+
+        {/* End-of-Carousel Call to Action Card (Exact Match for Frame 046) */}
+        <div className="w-72 sm:w-80 h-[28rem] sm:h-[30rem] rounded-2xl bg-neutral-100 border border-black/10 p-8 flex flex-col items-center justify-center text-center shrink-0 shadow-sm">
+          <p className="font-script text-4xl sm:text-5xl text-neutral-800 leading-tight mb-8">
+            "Build, break, learn, repeat."
+          </p>
+
+          <button
+            onClick={scrollToContact}
+            className="px-6 py-2.5 rounded-full border border-neutral-800 hover:bg-neutral-900 hover:text-white transition-all text-xs font-mono tracking-widest uppercase cursor-pointer"
+          >
+            CONTACT →
+          </button>
+        </div>
       </div>
 
-      {/* Project Detail Modal */}
+      {/* Horizontal Carousel Scroll Indicator Bar (Frame 046) */}
+      <div className="max-w-xs mx-auto px-6 mt-2">
+        <div className="w-full h-[2px] bg-neutral-200 relative rounded-full overflow-hidden">
+          <div
+            className="h-full bg-neutral-900 transition-[width] duration-150 ease-out"
+            style={{ width: `${Math.max(scrollProgress, 8)}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Project Detail Modal with Smooth Open/Close Animation */}
       <AnimatePresence>
         {selectedItem && selectedItem.type === 'project' && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

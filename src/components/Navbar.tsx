@@ -8,10 +8,10 @@ interface NavbarProps {
 }
 
 const NAV_ITEMS = [
-  { id: 'about', label: 'ABOUT', index: '01' },
+  { id: 'about', label: 'PROFILE', index: '01' },
   { id: 'craft', label: 'CRAFT', index: '02' },
   { id: 'quote', label: 'QUOTE', index: '03' },
-  { id: 'projects', label: 'PROJECTS', index: '04' },
+  { id: 'projects', label: 'GALLERY', index: '04' },
   { id: 'contact', label: 'CONTACT', index: '05' },
 ];
 

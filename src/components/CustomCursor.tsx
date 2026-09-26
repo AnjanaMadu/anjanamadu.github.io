@@ -7,7 +7,7 @@ export const CustomCursor: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    // Only show custom cursor on devices that support fine pointer
+    // Only show custom cursor on desktop/fine pointers
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
     if (isTouch) return;
 
@@ -38,8 +38,8 @@ export const CustomCursor: React.FC = () => {
     let animationFrameId: number;
     const updateTrailing = () => {
       setTrailingPos((prev) => ({
-        x: prev.x + (position.x - prev.x) * 0.2,
-        y: prev.y + (position.y - prev.y) * 0.2
+        x: prev.x + (position.x - prev.x) * 0.25,
+        y: prev.y + (position.y - prev.y) * 0.25
       }));
       animationFrameId = requestAnimationFrame(updateTrailing);
     };
@@ -57,25 +57,21 @@ export const CustomCursor: React.FC = () => {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
-      {/* Inner Dot */}
+      {/* Translucent Circular Disc Cursor (matching Frame 023-028 & Frame 047-053) */}
       <div
-        className="fixed w-2 h-2 rounded-full bg-neutral-900 transition-opacity duration-150 transform -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
-          backgroundColor: '#ffffff'
-        }}
-      />
-      {/* Outer Follower Ring */}
-      <div
-        className={`fixed rounded-full border border-white/60 transition-transform duration-200 transform -translate-x-1/2 -translate-y-1/2 mix-blend-difference ${
-          isHovered ? 'w-10 h-10 bg-white/20 scale-125' : 'w-7 h-7 scale-100'
+        className={`fixed rounded-full transition-transform duration-200 transform -translate-x-1/2 -translate-y-1/2 mix-blend-difference pointer-events-none flex items-center justify-center ${
+          isHovered
+            ? 'w-10 h-10 bg-white/40 border border-white scale-110 backdrop-blur-xs'
+            : 'w-7 h-7 bg-white/80 border border-white/60 shadow-xs'
         }`}
         style={{
           left: `${trailingPos.x}px`,
           top: `${trailingPos.y}px`
         }}
-      />
+      >
+        {/* Subtle center core dot */}
+        <div className="w-1.5 h-1.5 rounded-full bg-black/80" />
+      </div>
     </div>
   );
 };

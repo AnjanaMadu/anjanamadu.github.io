@@ -1,9 +1,8 @@
 import { CraftItem, ProjectItem, SocialLink } from './types';
 
 export const PROFILE_DATA = {
-  name: 'Anjana Madu',
-  fullName: 'Anjana Madushanka',
-  japaneseName: 'アンジャナ・マドゥ',
+  name: 'Anjana M.',
+  japaneseName: 'アンジャナ',
   handle: '@AnjanaMadu',
   role: 'Full-Stack & DevOps Engineer',
   avatarUrl: '/images/anjana_avatar.png',

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Volume2, ExternalLink } from 'lucide-react';
+import { motion } from 'motion/react';
 import { PROFILE_DATA } from '../data';
 import { GitHubStatsCard } from './GitHubStatsCard';
 
@@ -10,53 +11,63 @@ interface ProfileProps {
 
 export const Profile: React.FC<ProfileProps> = ({ onPlaySynth, isPlaying }) => {
   return (
-    <section id="about" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-20">
-      {/* Section Tag */}
+    <section id="about" className="py-20 px-6 max-w-7xl mx-auto scroll-mt-20">
+      {/* Section Tag (Frame 015) */}
       <div className="text-xs font-mono tracking-[0.25em] text-neutral-400 uppercase mb-8 flex items-center gap-2">
         <span>—</span>
         <span className="font-semibold text-neutral-800">01 ABOUT</span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        {/* Left Column: Portrait Photo with editorial caption (5 cols) */}
+        {/* Left Column: Portrait Photo with editorial caption (5 cols, Frame 017-020) */}
         <div className="lg:col-span-5 flex flex-col">
           <div className="relative rounded-2xl overflow-hidden bg-neutral-100 border border-black/10 aspect-[3/4] shadow-md group">
             <img
               src={PROFILE_DATA.avatarUrl}
-              alt="Anjana Madu Portrait"
+              alt="Anjana M. Portrait"
               className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               referrerPolicy="no-referrer"
             />
-            {/* Subtle aesthetic overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent pointer-events-none" />
           </div>
 
-          {/* Hairline Caption below image */}
+          {/* Hairline Caption below image (Frame 018-020) */}
           <div className="flex items-center justify-between text-[11px] font-mono tracking-[0.2em] text-neutral-500 pt-3 border-t border-black/10 mt-3 uppercase">
-            <span>NO. 001 — DEVELOPER</span>
+            <span>NO. 001 — PORTRAIT</span>
             <span className="font-bold text-neutral-800">OPEN SOURCE</span>
           </div>
         </div>
 
-        {/* Right Column: Bio, Katakana, Meta Grid & Motto Card (7 cols) */}
+        {/* Right Column: Bio, Katakana, Meta Grid & Motto Card (7 cols, Frame 016-021) */}
         <div className="lg:col-span-7 flex flex-col justify-between">
           <div className="flex items-start gap-6">
-            {/* Vertical Katakana text */}
-            <div className="font-jp text-lg tracking-[0.4em] text-neutral-400 font-light [writing-mode:vertical-rl] select-none pt-2">
+            {/* Vertical Katakana text (Frame 016-020) */}
+            <div className="font-jp text-lg tracking-[0.4em] text-neutral-400 font-light [writing-mode:vertical-rl] select-none pt-2 shrink-0">
               アンジャナ
             </div>
 
-            {/* Main Title & Bio */}
+            {/* Main Title & Bio with Overflow-Hidden Mask Reveal (Frame 015-016) */}
             <div className="flex-1">
-              <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-900 tracking-tight mb-6">
-                Hello, I'm Anjana!
-              </h2>
+              <div className="overflow-hidden mb-6">
+                <motion.h2
+                  initial={{ y: '100%' }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-900 tracking-tight flex items-baseline gap-3 flex-wrap"
+                >
+                  <span className="font-editorial">Hello, I'm</span>
+                  <span className="font-script text-5xl sm:text-6xl md:text-7xl text-neutral-800 italic transform -rotate-1">
+                    Anjana!
+                  </span>
+                </motion.h2>
+              </div>
 
               <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-normal mb-8 max-w-xl">
                 {PROFILE_DATA.bio}
               </p>
 
-              {/* Data Grid with refined hairline borders */}
+              {/* Data Grid with refined hairline borders (Frame 018-020) */}
               <div className="grid grid-cols-2 border-y border-black/10 divide-y divide-black/10 mb-8">
                 {/* Row 1 */}
                 <div className="py-4 pr-4">
@@ -69,28 +80,20 @@ export const Profile: React.FC<ProfileProps> = ({ onPlaySynth, isPlaying }) => {
                 </div>
                 <div className="py-4 pl-4 border-l border-black/10">
                   <div className="text-[10px] font-mono tracking-[0.2em] text-neutral-400 uppercase mb-1">
-                    SPECIALIZATION
+                    LOCATION
                   </div>
                   <div className="font-editorial text-base sm:text-lg text-neutral-900 font-medium">
-                    {PROFILE_DATA.role}
+                    {PROFILE_DATA.location}
                   </div>
                 </div>
 
                 {/* Row 2 */}
                 <div className="py-4 pr-4 border-t border-black/10">
                   <div className="text-[10px] font-mono tracking-[0.2em] text-neutral-400 uppercase mb-1">
-                    GITHUB PROFILE
+                    SPECIALIZATION
                   </div>
                   <div className="font-editorial text-base sm:text-lg text-neutral-900 font-medium">
-                    <a
-                      href="https://github.com/AnjanaMadu"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1 hover:underline"
-                    >
-                      <span>{PROFILE_DATA.handle}</span>
-                      <ExternalLink size={14} className="opacity-70" />
-                    </a>
+                    {PROFILE_DATA.role}
                   </div>
                 </div>
                 <div className="py-4 pl-4 border-l border-t border-black/10">
@@ -103,12 +106,12 @@ export const Profile: React.FC<ProfileProps> = ({ onPlaySynth, isPlaying }) => {
                 </div>
               </div>
 
-              {/* Engineering Motto Card */}
+              {/* Introduction Card with Cursive & Japanese Label (Frame 021) */}
               <div className="p-6 rounded-xl bg-white border border-black/10 shadow-xs relative overflow-hidden group">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="text-[10px] font-mono tracking-[0.2em] text-neutral-400 uppercase flex items-center gap-1.5">
-                    <span>PHILOSOPHY</span>
-                    <span className="font-jp text-[9px] text-neutral-400">理念</span>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-[10px] font-mono tracking-[0.2em] text-neutral-500 uppercase flex items-center gap-2">
+                    <span className="font-bold text-neutral-800">INTRODUCTION</span>
+                    <span className="font-jp text-[10px] text-neutral-400">自己紹介</span>
                   </div>
 
                   <button
@@ -122,7 +125,7 @@ export const Profile: React.FC<ProfileProps> = ({ onPlaySynth, isPlaying }) => {
                 </div>
 
                 <p className="font-editorial italic text-base sm:text-lg text-neutral-800 leading-snug">
-                  "Build, break, learn, repeat. Turning complex systems into resilient, elegant code."
+                  "Build, break, learn, repeat. Turning complex distributed systems and networks into clean, resilient code."
                 </p>
               </div>
             </div>
@@ -135,4 +138,3 @@ export const Profile: React.FC<ProfileProps> = ({ onPlaySynth, isPlaying }) => {
     </section>
   );
 };
-
