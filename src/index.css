@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Italiana', 'Playfair Display', serif;
+    --font-editorial: 'Playfair Display', serif;
+    --font-script: 'Pinyon Script', 'Alex Brush', cursive;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-jp: 'Noto Sans JP', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #fbfbfa;
+    color: #1a1a1a;
+    overflow-x: hidden;
+  }
+}
+
+.font-serif-display {
+  font-family: 'Italiana', 'Playfair Display', Georgia, serif;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-script {
+  font-family: 'Pinyon Script', 'Alex Brush', cursive;
+}
+
+.font-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* Hide scrollbar for gallery drag/scroll container */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pulse-bar {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+.bar-1 { animation: pulse-bar 0.8s ease-in-out infinite; }
+.bar-2 { animation: pulse-bar 1.1s ease-in-out infinite 0.2s; }
+.bar-3 { animation: pulse-bar 0.9s ease-in-out infinite 0.4s; }
+.bar-4 { animation: pulse-bar 1.2s ease-in-out infinite 0.1s; }
+.bar-5 { animation: pulse-bar 0.7s ease-in-out infinite 0.3s; }
